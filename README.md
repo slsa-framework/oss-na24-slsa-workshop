@@ -13,10 +13,10 @@ The schedule and presentations are available in the [slides](https://docs.google
 1. Presentation: Introduction to SLSA  
 2. [Activity 01: Generate and verify SLSA provenance](./activities/01/readme.md)
 3. Presentation: Release and deployment policies
-4. [Activity 02: Policy setup](./02/readme.md)
-5. [Activity 03: Kyverno setup](./activities/readme.md)
+4. [Activity 02: Policy setup](./activities/02/readme.md)
+5. [Activity 03: Kyverno setup](./activities/03/readme.md)
 6. Presentation: SLSA for AI
-7. [Activity 04: Model integrity protection](./activities/readme.md)
+7. [Activity 04: Model integrity protection](./activities/04/readme.md)
 8. Presentation + Demo: SLSA for Jupyter notebooks
 
  
