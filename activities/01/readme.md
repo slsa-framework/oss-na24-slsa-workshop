@@ -82,3 +82,5 @@ Run the same verification command but remove the `sha256:xxx` part of the image 
 #### Further reading: Verification in a GitHub  workflow
 
 Add a job to your workflow and verify its provenance in the workflow. You can install the slsa-verifier via its [GitHub Action](https://github.com/slsa-framework/slsa-verifier/blob/main/actions/installer/README.md).
+
+Read about the limitation of the current implementation of the generators [here](https://github.com/slsa-framework/slsa-github-generator/issues/1868).
