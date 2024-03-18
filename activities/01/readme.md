@@ -34,7 +34,7 @@ The repository contains a GitHub workflow [.github/workflow/build-echo-server.ym
 
 1. Authenticate to docker registry, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41).
 1. Build the container and push it to docker registry as "\<repository-name\>-echo-server", see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an environment variable at the top of the workflow, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under [images/echo-server/](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/images/echo-server) and is a simple echo server.
-1. In a diffeernt job, we call the container generator with the image name and digest, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79). Note that is is IMPORTANT for the digest to be computed _without_ interaction with the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
+1. In a seperate job, we call the container generator with the image name and digest, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79). Note that is is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
 1. As a sanity step, we pull the container and run it, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
 
 #### Run the workflow
@@ -71,16 +71,17 @@ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --bui
 The slsa-verifier verifies:
 
 1. The cryptographic digest of the container matches the one in the attestation
-2. The repository that the container was built was your repoistory.
+2. The source origin of the repository
+3. The builder who built and generated the attestation.
 
 Pass command `--print-provenance | jq` to see the plaintext intoto attestation.
 
-Explore other commands by using the `--help` command. You cna read more on the project repository.
+Explore other commands by using the `--help` command. You can read more on the project repository [here](https://github.com/slsa-framework/slsa-verifier).
 
 Run the same verification command but remove the `sha256:xxx` part of the image name: `image=image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See hints [here](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
 
 #### Further reading: Verification in a GitHub  workflow
 
-Add a job to your workflow and verify its provenance in the workflow. You can install the slsa-verifier via its [GitHub Action](https://github.com/slsa-framework/slsa-verifier/blob/main/actions/installer/README.md).
+Add a job to your workflow and verify its provenance in the workflow. You can install the slsa-verifier as a step in your workflow with its [GitHub Action](https://github.com/slsa-framework/slsa-verifier/blob/main/actions/installer/README.md).
 
 Read about the limitation of the current implementation of the generators [here](https://github.com/slsa-framework/slsa-github-generator/issues/1868).
