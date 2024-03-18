@@ -43,18 +43,29 @@ Follow these steps:
 
 1. You need to update the [REGISTRY_USERNAME](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
 1. Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
-2. Store your docker token as a new GitHub secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow).
+2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c`.
 
 
 #### Verify provenance
 
 To install slsa-verifier, follow the instructions from [here](https://github.com/slsa-framework/slsa-verifier?tab=readme-ov-file#option-1-install-via-go).
 
+Make sure you have access to your image by authenticating to docker:
+
+```shell
+REGISTRY_TOKEN=<your-token>
+REGISTRY_USERNAME=<registru-username>
+docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
+```
+
 To verify your container, use the following command:
 
 ```shell
-TODO
+# Update the image as recorded in your logs
+image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c
+source_uri=github.com/laurentsimon/oss-na24-slsa-workshop-project1
+path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
 ```
 
 The slsa-verifier verifies:
@@ -62,7 +73,7 @@ The slsa-verifier verifies:
 1. The cryptographic digest of the container matches the one in the attestation
 2. The repository that the container was built was your repoistory.
 
-Pass command `--show-provenance` to see the plaintext intoto attestation.
+Pass command `--print-provenance | jq` to see the plaintext intoto attestation.
 
 Explore other commands by using the `--help` command. You cna read more on the project repository.
 
