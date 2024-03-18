@@ -65,3 +65,5 @@ The slsa-verifier verifies:
 Pass command `--show-provenance` to see the plaintext intoto attestation.
 
 Explore other commands by using the `--help` command. You cna read more on the project repository.
+
+**Bonus**: Add a job to your workflow and verify its provenance in the workflow. You can install the slsa-verifier via its [GitHub Action](https://github.com/slsa-framework/slsa-verifier/blob/main/actions/installer/README.md).
