@@ -34,9 +34,8 @@ The repository contains a GitHub workflow [.github/workflow/build-echo-server.ym
 
 1. Authenticate to docker registry, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41).
 1. Build the container and push it to docker registry as "<repository-name>-echo-server", see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an environment variable at the top of the workflow, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under [images/echo-server/](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/images/echo-server) and is a simple echo server.
-1. Extract the cryptographic digest of the container (see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L55)). Note that the name of the variable is mis-leading, it's called `outputs.tags` but is a `sha256:xxx` digest. Note that it is IMPORTANT that the digest be computed without interacting with the registry, to remove the registry from the trusted computing base.
-1. In a diffeernt job, we call the container generator, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79).
-1. As a verification step, we pull the container and verify it, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
+1. In a diffeernt job, we call the container generator with the image name and digest, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79). Note that is is IMPORTANT for the digest to be computed _without_ interaction with the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
+1. As a verification step, we pull the container and run it, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
 
 #### Run the workflow
 
