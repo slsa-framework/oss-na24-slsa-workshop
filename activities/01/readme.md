@@ -8,7 +8,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 To complete this activity, you need:
 
-1. Have read the [introduction to SLSA](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
+1. To have read the [introduction to SLSA](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
 1. A GitHub account
 1. A docker registry account (alternatively you can use GitHub registry)
 
