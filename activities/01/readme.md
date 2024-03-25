@@ -42,10 +42,11 @@ The repository contains a GitHub workflow [.github/workflow/build-echo-server.ym
 
 Follow these steps:
 
-1. You need to update the [REGISTRY_USERNAME](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
+1. Update the [REGISTRY_USERNAME](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
+1. Update the [hardcoded username ](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
 1. Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
-2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c`.
+1. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c`.
 
 
 #### Verify provenance
