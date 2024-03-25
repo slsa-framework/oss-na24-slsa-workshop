@@ -45,8 +45,8 @@ Follow these steps:
 1. Update the [REGISTRY_USERNAME](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
 1. Update the [hardcoded username ](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
 1. Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
-1. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c`.
+2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e`.
 
 
 #### Verify provenance
@@ -56,18 +56,18 @@ To install slsa-verifier, follow the instructions from [here](https://github.com
 Make sure you have access to your image by authenticating to docker:
 
 ```shell
-REGISTRY_TOKEN=<your-token>
-REGISTRY_USERNAME=<registry-username>
-docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
+$ REGISTRY_TOKEN=<your-token>
+$ REGISTRY_USERNAME=<registru-username>
+$ docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
 ```
 
 To verify your container, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c
-source_uri=github.com/laurentsimon/oss-na24-slsa-workshop-project1
-path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
+$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+$ source_uri=github.com/laurentsimon/oss-na24-slsa-workshop-project1
+$ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
 ```
 
 The slsa-verifier verifies:
