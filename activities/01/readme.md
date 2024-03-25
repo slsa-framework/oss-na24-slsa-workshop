@@ -8,6 +8,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 To complete this activity, you need:
 
+1. Have read the [introduction to SLSA](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
 1. A GitHub account
 1. A docker registry account (alternatively you can use GitHub registry)
 
@@ -80,8 +81,15 @@ Explore other commands by using the `--help` command. You can read more on the p
 
 Run the same verification command but remove the `sha256:xxx` part of the image name: `image=image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See hints [here](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
 
-#### Further reading: Verification in a GitHub  workflow
+#### Optional: Verification in a GitHub  workflow
 
 Add a job to your workflow and verify its provenance in the workflow. You can install the slsa-verifier as a step in your workflow with its [GitHub Action](https://github.com/slsa-framework/slsa-verifier/blob/main/actions/installer/README.md).
 
 Read about the limitation of the current implementation of the generators [here](https://github.com/slsa-framework/slsa-github-generator/issues/1868).
+
+## Take the quizz!
+
+After completing this activity, you should be able to answer the following questions:
+
+1. What is a SLSA builder? How many levels can it have?
+2. A builder builds artifacts and generates SLSA provenance for them. What is the necessary metadata to verify provenance for an artifact?
