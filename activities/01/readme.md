@@ -57,7 +57,7 @@ Make sure you have access to your image by authenticating to docker:
 
 ```shell
 REGISTRY_TOKEN=<your-token>
-REGISTRY_USERNAME=<registru-username>
+REGISTRY_USERNAME=<registry-username>
 docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
 ```
 
