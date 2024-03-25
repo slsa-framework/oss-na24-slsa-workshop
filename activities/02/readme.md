@@ -36,9 +36,9 @@ into:
 #### Repository protections
 
 As described in the previous paragraph, the organization stores all policy configurations in a central location. To reduce the bottleneck on the organization admins,
-it is important for team policies to be configurable _without_ admin intervention. We need to enable teams to review and push their own changes on their own, while
-protecting them against unauthorized changes from other teams. Similarly, the configuration maintained by the organization must be protected again unauthorized
-changes by other teams. These require setting up [branch protection rules](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository) and [CODEOWNER settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#additional-settings). To simplify the workshop and due to time constraint,
+it is important for team policies to be editable _without_ admin intervention. We need to enable teams to review and edit changes on their own, while
+preventing unauthorized changes from other teams. Similarly, the configuration maintained by the organization must be protected again unauthorized
+changes by other teams. We can echieve these protections by setting up [branch protection rules](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository) and [CODEOWNER settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#additional-settings). To simplify the workshop and due to time constraint,
 we will assume these protections are in place. If you wish to implement these protections after the workshop, refer to the steps described in the [policy-setup](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#policy-setup).
 
 #### Organization roots
@@ -46,8 +46,8 @@ we will assume these protections are in place. If you wish to implement these pr
 Fork this repository [https://github.com/laurentsimon/oss-na24-slsa-workshop-organization](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/fork).
 
 Under [policies/release](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/tree/main/policies/release) are the configuration files for the release policy. The file maintained by the organization admins
-is [org.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/tree/main/policies/release/org.json). It contains a list of trusted
-SLSA builders allowed to build projects for the organization, along with their corresponding SLSA level. For example, the [first listed builder](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/org.json#L5-L8) has `id:https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml`, `slsa_level:3` and is given the short name `github_generator_level_3`.
+is [org.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/tree/main/policies/release/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
+each trusted root is a SLSA builder allowed to build projects for the organization, along with its corresponding SLSA level. For example, the [first listed builder](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/org.json#L5-L8) has `id:https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml`, `slsa_level:3` and is given the short name `github_generator_level_3`.
 
 
 #### Evaluator service
