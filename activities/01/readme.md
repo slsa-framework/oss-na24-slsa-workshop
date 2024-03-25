@@ -92,4 +92,5 @@ Read about the limitation of the current implementation of the generators [here]
 After completing this activity, you should be able to answer the following questions:
 
 1. What is a SLSA builder? How many levels can it have?
-2. A builder builds artifacts and generates SLSA provenance for them. What is the necessary metadata to verify provenance for an artifact?
+2. What is SLSA provenance? WHat information does it contain?
+3. What is the necessary metadata to verify SLSA provenance for an artifact?
