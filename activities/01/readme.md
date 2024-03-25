@@ -75,7 +75,7 @@ The slsa-verifier verifies:
 2. The source origin of the repository
 3. The builder who built and generated the attestation.
 
-Pass command `--print-provenance | jq` to see the plaintext intoto attestation.
+Pass command `--print-provenance | jq` to see the verified content of the attestation.
 
 Explore other commands by using the `--help` command. You can read more on the project repository [here](https://github.com/slsa-framework/slsa-verifier).
 
