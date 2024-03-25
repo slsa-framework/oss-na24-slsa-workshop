@@ -26,7 +26,7 @@ In this activity, we will focus on the integrity protections applied to an artif
 
 ### Release policy setup
 
-The policy is stored in a central location administered by the organization. The motivatin for this central location is that it gives the organization a central view of 
+The policy is stored in a central location administered by the organization. This gives the organization a central view of 
 all the projects and their configuration. In this activity, we store the policy in a GitHub repository owned by the organization. As we will see shortly, the policy is sub-devided
 into:
 
