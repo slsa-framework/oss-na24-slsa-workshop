@@ -54,8 +54,8 @@ each trusted root is a SLSA builder allowed to build projects for the organizati
 The repository contains a GitHub workflow [.github/workflows/image-releaser.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml) which evaluates the release policy. It contains the following logic:
 
 1. [Detects the refs](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
-1. [Install the evaluator CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml#L106-L115) TODO: Action.
-1. [Run the policy evaluator](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml#L116-L126)
+1. [Install the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml#L116-L126).
+1. [Run the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml#L110-L120).
 
 #### Pre-submits
 
