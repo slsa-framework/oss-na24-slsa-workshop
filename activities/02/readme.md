@@ -140,7 +140,7 @@ Remember to try setting up the protection ACLs to protect the policy and allow t
 In this Activity, users need to explicitly call the release policy evaluator from CI. We can improve UX by doing this automatically:
 
 1. If you have an internal registry where teams publish their containers / artifacts, the registry itself may evaluate the release policy.
-2. Integration with tooling. It's theoretically possible to integrate the call to the evaluator in the package manager. For example, docker CLI could be extended with a `--release-gate-url` to allow users to provide the URL of the evaluator. Users would run `docker push ${image} --release-gate-url=https://release.mycompany.com/policy`. This would require standardizing the interface to the evaluator.
+2. Integration with tooling: The package manager calls to the evaluator. For example, docker CLI could be extended with a `--release-gate-url` to allow users to provide the URL of the evaluator. Users would run `docker push ${image} --release-gate-url=https://release.mycompany.com/policy`. This would require standardizing the interface to the evaluator.
 
 ## Take the quizz!
 
