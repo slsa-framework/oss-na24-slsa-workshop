@@ -49,7 +49,6 @@ Under [policies/release](https://github.com/laurentsimon/oss-na24-slsa-workshop-
 is [org.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/tree/main/policies/release/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
 each trusted root is a SLSA builder allowed to build projects for the organization, along with its corresponding SLSA level. For example, the [first listed builder](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/org.json#L5-L8) has `id:https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml`, `slsa_level:3` and is given the short name `github_generator_level_3`.
 
-
 #### Evaluator service
 
 The repository contains a GitHub workflow [.github/workflows/image-releaser.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml) which evaluates the release policy. It contains the following logic:
@@ -62,9 +61,9 @@ The repository contains a GitHub workflow [.github/workflows/image-releaser.yml]
 
 Across the policy, there is an important invariant to maintain, which is that a package must be owned by at most _one_ team. In other words, we must ensure that across the policy,
 a package is only referenced once across all configuration files. For this, we make use of pre-submits to run when teams submit changes to their policy via pull requests.
-TODO: the pre-submit
+The pre-submits are configured to run on pull requests in the workflow file [.github/workflows/pre-submit.release-policy.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/pre-submit.release-policy.yml).
 
-TODO: CODEOWNER pre-submit.
+An additional required pre-submit is to ensure that new team policy files are accompanied by a new CODEOWNER file. We leave this as future work.
 
 ### Team setup
 
@@ -134,6 +133,10 @@ $ path/to/cosign verify-attestation "${image}" \
 #### Set up ACLs
 
 Remember to try setting up the protection ACLs to protect the policy and allow teams to edit the files they own. See [here](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) for details.
+
+#### Pre-submits for CODEOWNER
+
+We must ensure that new team policy files are accompanied by a new CODEOWNER file. If you implement this feature, please share it with us!
 
 ### UX improments
 
