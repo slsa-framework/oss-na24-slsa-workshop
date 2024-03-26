@@ -70,7 +70,7 @@ An additional required pre-submit is to ensure that new team policy files are ac
 #### Project ownership
 
 To ensure only the team that owns a package is allowed to edit its configuration, the team must edit or create a CODEOWNER file that give them ownership of the configurations (files or entire directories).
-As explained in [repository protections](#repository-protections), for time constraints in this workshop we will assume this is done.
+As explained in [repository protections](#repository-protections), for time constraints in this workshop we will assume this is done, but you can set it up [after the workshop](#set-up-acls).
 
 ##### Configure the policy
 
