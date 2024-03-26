@@ -70,7 +70,7 @@ TODO: CODEOWNER pre-submit.
 
 #### Project ownership
 
-To ensure only the team thta owns a package is allowed to edit its configuration, the team must edit or create a CODEOWNER file that give them ownership of the configurations (files or entire directories).
+To ensure only the team that owns a package is allowed to edit its configuration, the team must edit or create a CODEOWNER file that give them ownership of the configurations (files or entire directories).
 As explained in [repository protections](#repository-protections), for time constraints in this workshop we will assume this is done.
 
 ##### Configure the policy
