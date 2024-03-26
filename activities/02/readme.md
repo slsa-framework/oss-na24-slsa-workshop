@@ -150,4 +150,4 @@ After completing this activity, you should be able to answer the following quest
 2. What are trusted roots? Who configures them?
 3. What is a release attestation? Who creates it? What information does it contain?
 4. What metadata is needed to verify a release attestation? Why is a policy URI not needed in our example? Are there cases where it may be needed? Why?
-5. What steps can be take  to improve UX for teams?
+5. What improvements can we make to improve UX for teams?
