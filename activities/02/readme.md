@@ -61,7 +61,7 @@ The repository contains a GitHub workflow [.github/workflows/image-releaser.yml]
 #### Pre-submits
 
 Across the policy, there is an important invariant to maintain, which is that a package must be owned by at most _one_ team. In other words, we must ensure that across the policy,
-a package is only referenced once across all configuration files. For this, we make use of pre-submits to run when teams subject changes to their policy.
+a package is only referenced once across all configuration files. For this, we make use of pre-submits to run when teams submit changes to their policy via pull requests.
 TODO: the pre-submit
 
 TODO: CODEOWNER pre-submit.
@@ -70,14 +70,14 @@ TODO: CODEOWNER pre-submit.
 
 #### Project ownership
 
-To ensure only the team can edit the configuration referencing your package / container, the team must edit the CODEOWNER file or add one under a directry they want to control.
+To ensure only the team thta owns a package is allowed to edit its configuration, the team must edit or create a CODEOWNER file that give them ownership of the configurations (files or entire directories).
 As explained in [repository protections](#repository-protections), for time constraints in this workshop we will assume this is done.
 
 ##### Configure the policy
 
-The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json) which describes the policy for the container built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). The file contains the following sections:
+The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json) which describes the team policy for the container built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). The file contains the following sections:
 
-1. The [package](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L3) section describes the package to to create, i.e., [docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
+1. The [package](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L3) section describes the package to publish, i.e., [docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
 1. The [build](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L11) section describes how to build the container, i.e. it must be built from the source repository [github.com/laurentsimon/oss-na24-slsa-workshop-project1](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L14) by builder [github_generator_level_3](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/release/echo-server.json#L12).
 
 
@@ -92,8 +92,7 @@ To evaluate the release policy, the evaluator must be called from CI. It is up t
 [.github/workflows/release-image.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/release-image.yml) that can be called manually for testing purposes.
 In practice, teams would call these after builing their containers.
 
-If the policy evaluation succeeds, the evaluator crates a release attestation and signed it with [Sigstore](sigstore.dev). The attestation is stored along the container on the registry, [a-la-cosign](https://github.com/sigstore/cosign).
-NOTE: SLSA does _not_ prescribe _where_ to store the provenance.
+If the policy evaluation succeeds, the evaluator creates a release attestation and signs it with [Sigstore](sigstore.dev). The attestation is stored along the container on the registry, [a-la-cosign](https://github.com/sigstore/cosign). NOTE: SLSA does not prescribe where to store the provenance, nor does it prescribe the use of Sigstore for signing.
 
 Follow these steps:
 
@@ -101,7 +100,7 @@ Follow these steps:
 1. Update the [registry-username](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/release-image.yml#L43) to yours.
 1. (Already done in Activity 01): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
 1. (Already done in Activity 01): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:3cea74d6b3d033869f4185a9478d66009c97fda18631c0650f7ea3be4fca722c`.
+1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
 
 
 ##### Verify release attestation manually
@@ -122,35 +121,19 @@ To verify your container, use the following command:
 # Update the image as recorded in your logs
 $ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
 # Update the repository name storing your policies.
-$ creator_id="https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-releaser.yml@refs/heads/main"
+$ creator_id="https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/.github/workflows/image-releaser.yml@refs/heads/main"
 $ type=https://slsa.dev/release/v0.1
-$ path/to/cosign verify-attestation "{$image}" \
+$ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
     --certificate-identity "${creator_id}" 
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
-The slsa-verifier verifies:
-
-1. The cryptographic digest of the container matches the one in the attestation
-2. The source origin of the repository
-3. The builder who built and generated the attestation.
-
-Pass command `--print-provenance | jq` to see the plaintext intoto attestation.
-
-Explore other commands by using the `--help` command. You can read more on the project repository [here](https://github.com/slsa-framework/slsa-verifier).
-
-Run the same verification command but remove the `sha256:xxx` part of the image name: `image=image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See hints [here](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
-
 #### Do it at home
 
 ##### Set up ACLs
 
-And pre-submits
-
-##### Use an organization store
-
-TODO: cannot write
+Remember to try setting up the protection ACLs to protect the policy and allow teams to edit the files they own. See [here](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) for details.
 
 ## Take the quizz!
 
