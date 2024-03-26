@@ -89,7 +89,7 @@ Follow these steps:
 
 To evaluate the release policy, the evaluator must be called from CI. It is up to teams to decide _when_ to do that. In this activity, we provide a helper workflow
 [.github/workflows/release-image.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/release-image.yml) that can be called manually for testing purposes.
-In practice, teams would call it automatically after builing their containers.
+In practice, teams would call it automatically after building their containers.
 
 If the policy evaluation succeeds, the evaluator creates a release attestation and signs it with [Sigstore](sigstore.dev). The attestation is stored along the container on the registry, [a-la-cosign](https://github.com/sigstore/cosign). NOTE: SLSA does not prescribe where to store the provenance, nor does it prescribe the use of Sigstore for signing.
 
