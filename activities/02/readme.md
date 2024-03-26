@@ -142,8 +142,8 @@ We must ensure that new team policy files are accompanied by a new CODEOWNER fil
 
 In this Activity, users need to explicitly call the release policy evaluator from CI. We may improve UX by calling he evaluator automatically instead:
 
-1. If you have an internal registry where teams publish their containers / artifacts, the registry itself may evaluate the release policy.
-2. Integration with tooling: The package manager calls to the evaluator. For example, docker CLI could be extended with a `--release-gate-url` to allow users to provide the URL of the evaluator. Users would run `docker push ${image} --release-gate-url=https://release.mycompany.com/policy`. This would require standardizing the interface to the evaluator. The public registry may additionally provide a mechanism for organizations to require their packages have a valid release attestation to be published.
+1. If your organization has an internal registry where teams publish their containers / artifacts, the registry itself may evaluate the release policy.
+2. Integration with tooling: The package manager calls to the evaluator. For example, docker CLI could be extended with a `--release-gate-url` to allow users to provide the URL of the evaluator. Users would run `docker push ${image} --release-gate-url=https://release.mycompany.com/policy`. This would require standardizing the interface to the evaluator. The public registry may additionally provide a mechanism for organizations to require their packages have a valid release attestation to be published. Integration with tooling is a flexible long-term solution.
 
 ## Take the quizz!
 
