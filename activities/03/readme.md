@@ -24,7 +24,7 @@ The decision to allow or deny a deployment request may happen in "real-time", i.
 
 In this activity, we will define a deployment environment via its Kubernetes service account. This will help us achieve the first goal of the workshop, which is to ensure that all deployed containers run with a defined a set of privileges, the same way that OS processes are restricted to a set of running privileges (Service accounts have IAM permissions). Note that we have selected Kubernetes service accounts to simplify the workshop. Cloud service accounts would work well for real deployments.
 
-In this workshop, due to time constraint, we will focus on the use case of teams deploying containers that they build. Enabling consumption / deloyment of containers built by other teams is left as [future work](#deployment-of-other-teams-artifacts). TODO: validate the link
+In this workshop, due to time constraint, we will focus on the use case of teams deploying containers that they build. Deployment of containers built by other teams is left as [future work](#deployment-of-other-teams-artifacts).
 
 ## Deep dive
 
