@@ -60,10 +60,10 @@ The repository contains a GitHub workflow [.github/workflows/image-releaser.yml]
 #### Pre-submits
 
 Across the policy, there is an important invariant to maintain, which is that a package must be owned by at most _one_ team. In other words, we must ensure that across the policy,
-a package is only referenced once across all configuration files. For this, we make use of pre-submits to run when teams submit changes to their policy via pull requests.
-The pre-submits are configured to run on pull requests in the workflow file [.github/workflows/pre-submit.release-policy.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/pre-submit.release-policy.yml).
+a package is only referenced once across all configuration files. For this, we make use of pre-submits run on pull requests.
+The pre-submits are configured in the workflow file [.github/workflows/pre-submit.release-policy.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/pre-submit.release-policy.yml).
 
-An additional required pre-submit is to ensure that new team policy files are accompanied by a new CODEOWNER file. We leave this as future work.
+An additional required pre-submit is to ensure that new team policy files are accompanied by a new CODEOWNER file. We leave this as [future work](#pre-submits-for-codeowner).
 
 ### Team setup
 
