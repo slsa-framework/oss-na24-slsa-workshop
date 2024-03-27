@@ -76,7 +76,7 @@ As explained in [repository protections](#repository-protections), for time cons
 
 ##### Configure the policy
 
-The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under GCP service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
+The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under google service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
 
 1. A [service_account](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the service account delpoyed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the release policy. In other words, if a container was released for "staging", the deployment policy must contain the same environment value "staging".
 1. A [SLSA level for the builder](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L7). NOTE: The deployment policy uses release attestations to determine the SLSA levels.
@@ -127,7 +127,7 @@ $ path/to/cosign verify-attestation "${image}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
-The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission contrller must also verify each `scope` field against the deployment environment. In our demo, the GCP service account must be compared to the service account the pod is running under.
+The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission controller must also verify each `scope` field against the deployment environment. In our demo, the google service account must be compared to the service account the pod is running under.
 
 ### Do it at home
 
