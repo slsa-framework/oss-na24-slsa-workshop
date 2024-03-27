@@ -149,8 +149,9 @@ In this Activity, users need to explicitly call the release policy evaluator fro
 
 After completing this activity, you should be able to answer the following questions:
 
-1. What is a release policy? 
-2. What are trusted roots? Who configures them?
-3. What is a release attestation? Who creates it? What information does it contain?
-4. What metadata is needed to verify a release attestation? Why is a policy URI not needed in our example? Are there cases where it may be needed? Why?
-5. What improvements can we make to improve UX for teams?
+1. What is a release policy?
+2. What invariant is enforced across all policy files? Why is it necessary?
+3. What are trusted roots? Who configures them?
+4. What is a release attestation? Who creates it? What information does it contain?
+5. What metadata is needed to verify a release attestation?
+6. What improvements can we make to improve UX for teams?
