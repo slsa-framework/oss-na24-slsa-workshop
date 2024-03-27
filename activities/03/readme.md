@@ -127,7 +127,7 @@ $ path/to/cosign verify-attestation "${image}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
-The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission contrller must also verify each `scope` field against the deployment environment. In our demo, the GCP service account must be compared to the service account the pod is running.
+The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission contrller must also verify each `scope` field against the deployment environment. In our demo, the GCP service account must be compared to the service account the pod is running under.
 
 ### Do it at home
 
