@@ -157,7 +157,7 @@ In this Activity, users need to explicitly call the delpoyment policy evaluator 
 After completing this activity, you should be able to answer the following questions:
 
 1. What is a deployment policy?
-2. What invariants are enforced aross all policy files?
+2. What invariant is enforced across all policy files?
 3. What are trusted roots? Who configures them?
 4. What is a deployment attestation? Who creates it? What information does it contain?
 5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to add a policy URI field and verify it. TODO: Link to intoto attestation specs
