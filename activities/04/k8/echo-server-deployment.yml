@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-server-deployment
+  labels:
+    app: echo-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: echo-server
+  template:
+    metadata:
+      labels:
+        app: echo-server
+    spec:
+      containers:
+      - name: echo-server
+        image: docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+        ports:
+        - containerPort: 8081
