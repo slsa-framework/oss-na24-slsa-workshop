@@ -8,7 +8,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 To complete this activity, you need:
 
-1. To have read the [policy part](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
+1. To have read the policy part of the [slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
 1. A GitHub account
 1. A docker registry account (alternatively you can use GitHub registry)
 
@@ -113,7 +113,7 @@ $ REGISTRY_USERNAME=<registry-username>
 $ docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
 ```
 
-To verify your container, use the following command:
+To verify a deployment attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
@@ -147,6 +147,10 @@ In this demo, the attestations are stored along the container. This means that t
 2. Add an option to the evaluator CLI.
 3. Update your deployment evaluator to use the new option.
 4. Share your code with us! We can merge it in [slsa-policy repository](https://github.com/laurentsimon/slsa-policy).
+
+#### Challenge yourself
+
+Can you update the policy engine to support other types of protections, e.g., GKE cluster ID, etc. When you implement this feature, make sure to think whether there are invariants your policy configuration needs For example, if you were to implement a protection for Kubernetes namespaces, you would not be able to enforce invariant on it, because namespaces are _not_ unique across projects.
 
 ### UX improments
 
