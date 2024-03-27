@@ -127,6 +127,8 @@ $ path/to/cosign verify-attestation "${image}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
+The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission contrller must also verify each `scope` field against the deployment environment. In our demo, the GCP service account must be compared to the service account the pod is running.
+
 ### Do it at home
 
 #### Set up ACLs
@@ -158,5 +160,5 @@ After completing this activity, you should be able to answer the following quest
 2. What invariants are enforced aross all policy files?
 3. What are trusted roots? Who configures them?
 4. What is a deployment attestation? Who creates it? What information does it contain?
-5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to verify a policy URI. TODO: Link to intoto attestation specs
+5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to add a policy URI field and verify it. TODO: Link to intoto attestation specs
 6. What improvements can we make to improve UX for teams?
