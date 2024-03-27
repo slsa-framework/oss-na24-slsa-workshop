@@ -76,9 +76,9 @@ As explained in [repository protections](#repository-protections), for time cons
 
 ##### Configure the policy
 
-The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under Kubernetes service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
+The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under GCP service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
 
-1. A [service_account](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the Kubernetes service account delpoyed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the release policy. In other words, if a container was released for "staging", the deployment policy must contain the same environment value "staging".
+1. A [service_account](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the service account delpoyed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the release policy. In other words, if a container was released for "staging", the deployment policy must contain the same environment value "staging".
 1. A [SLSA level for the builder](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L7). NOTE: The deployment policy uses release attestations to determine the SLSA levels.
 1. A [list of packages](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L9-L33) allowed to run under the service account.
 
@@ -154,8 +154,9 @@ In this Activity, users need to explicitly call the delpoyment policy evaluator 
 
 After completing this activity, you should be able to answer the following questions:
 
-1. What is a deployment policy? 
-2. What are trusted roots? Who configures them?
-3. What is a deployment attestation? Who creates it? What information does it contain?
-4. What metadata is needed to verify a delpoyment attestation?
-5. What improvements can we make to improve UX for teams?
+1. What is a deployment policy?
+2. What invariants are enforced aross all policy files?
+3. What are trusted roots? Who configures them?
+4. What is a deployment attestation? Who creates it? What information does it contain?
+5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to verify a policy URI. TODO: Link to intoto attestation specs
+6. What improvements can we make to improve UX for teams?
