@@ -105,6 +105,12 @@ clusterpolicy.kyverno.io/slsa-policy created
 
 ### Deploy a pod
 
+Let's deploy the container we built in Activity 01. For that, we will use the [ctivities/04/k8/echo-server-deployment.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/04/k8/echo-server-deployment.yml) pod configuration.
+
+Follow these steps:
+
+1. Update the 
+
 ### Future work
 
 #### Additional protection
