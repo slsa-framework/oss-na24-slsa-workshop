@@ -14,7 +14,7 @@ To complete this activity, you need:
 
 ### Admission controller
 
-The admission controller needs to be configured to verify deloyment attestations. Verification requires the following metadata:
+The admission controller is the component that deploy artifacts / containers. It needs to be configured to verify deloyment attestations. Verification requires the following metadata:
 
 1. Trusted roots, which is the metadata that defines:
     1. Which evaluators we trust - defined by their identity.
