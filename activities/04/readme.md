@@ -26,7 +26,7 @@ The admission controller is the component that deploys artifacts / containers. I
 
 For example, a trusted root could contain (a) public key pubKeyA as evaluator identity, (b) protection type "google service account", (c) a list of service accounts as partition and (d) service account as required protection type.  A deployment attestation is considered authentic and trusted if it is signed using pubKeyA and contains only the protection type "google service account".
 
-In this workshop, use the open source policy engine [Kyverno](https://kyverno.io/).
+In this workshop, we use the open source policy engine [Kyverno](https://kyverno.io/).
 
 ## Deep dive
 
@@ -42,7 +42,7 @@ $ go install github.com/sigstore/cosign/v2/cmd/cosign@v2.1.1
 
 #### Local Kubernetes
 
-In this demo, we use a local Kubernetes installation called [minikube](https://minikube.sigs.k8s.io/docs/start/). Any other installation shoudl work, such as [k3s](https://k3s.io/), [kind](https://kind.sigs.k8s.io/), [microk8s](https://microk8s.io/) or other.
+In this demo, we use a local Kubernetes installation called [minikube](https://minikube.sigs.k8s.io/docs/start/).
 
 To install minikube, follow the instructions [here](https://minikube.sigs.k8s.io/docs/start/).
 
@@ -70,17 +70,14 @@ $ alias kubectl="minikube kubectl --"
 
 #### Kyverno policy engine
 
-TODO: configuration in details. See deploy att doc.
-
 Install [Kyverno policy engine](https://kyverno.io) as instructed in the [documentation](https://kyverno.io/docs/installation/).
-NOTE: Each Kyverno releases supports a range of Kubernetes version. Check out the [compatibility matrix](https://kyverno.io/docs/installation/#compatibility-matrix) to learn more.
 
 Install Kyverno by running:
 
 ```shell
-# Official installation file
+# Install either the official installation file
 $ kubectl create -f ttps://github.com/kyverno/kyverno/releases/download/v1.11.4/install.yaml
-# Verbose mode enabled (in this repository).
+# or a verbose mode enabled from this repository.
 # -dumpPayload=true and --v=6 for kyverno-admission-controller 
 $ kubectl create -f https://raw.githubusercontent.com/laurentsimon/oss-na24-slsa-workshop/main/activities/04/kyverno/install_verbose_v1.11.4.yml
 ```
@@ -108,25 +105,15 @@ $ kubectl -n kyverno logs -f kyverno-admission-controller-6dd8fd446c-4qck5
 We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
 To learn about verification for attestations signed with cosign, check out their [documentation](https://kyverno.io/docs/writing-policies/verify-images/sigstore/#keyless-signing-and-verification).
 
-Install the policy engine:
-
-```shell
-$ kubectl apply -f https://raw.githubusercontent.com/laurentsimon/oss-na24-slsa-workshop/main/activities/04/kyverno/slsa-policy.yml
-clusterpolicy.kyverno.io/slsa-policy created
-$ kubectl get cpol
-```
-
-Verification comprises of three files:
+There are two relevant files:
 
 1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
 1. A Kyverno enforcer file ([kyverno/slsa-enforcer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml)) that verifies the deployment attestation using the trusted roots.
 
 Clone the repository locally. Then follow the steps:
 
-1. Edit the verification configuration file [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml)
-1. Update the [attestation_creator](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file.
-
-Install the policy engine:
+1. Update the [attestation_creator](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator who created your deloyment attestation in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
+1. Install the policy engine
 
 ```shell
 $ kubectl apply -f kyverno/slsa-configuration.yml
@@ -141,8 +128,8 @@ Let's deploy the container we built in [Activity 01](https://github.com/laurents
 Follow these steps:
 
 1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file.
-1. WARNING: Since we are running Kubernetes cluster locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Edit this value to be the same you configured in your [deployment policy](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4).
-1. Deploy the container:
+1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Edit the value to the service account configured in your deployment policy for the container.
+1. Deploy the container
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
@@ -170,9 +157,9 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 ...THIS SHOULD FAIL...
 ```
 
-Update the pod configuartion back to its initial value.
+Update the pod configuartion back to its original value.
 
-1. edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
+1. Edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
@@ -184,9 +171,9 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 #### Limitation
 
 To our knowledge, the google service account is not available to a Kubernetes cluster. One way to deploy a real-world example
-if this demo is to bind Kubernetes service account to a google (GCP) service account as described [here](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
+of this demo is to bind Kubernetes service account to a google (GCP) service account as described [here](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
 
-#### Support other than serivce account
+#### Support other protection types
 
 Can you update the policy engine to support other types of protections, e.g., GKE cluster ID, etc. 
 
