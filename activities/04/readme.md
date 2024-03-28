@@ -14,9 +14,18 @@ To complete this activity, you need:
 
 ### Admission controller
 
-TODO: what it is and what it needs for verification. Use deploy attestation doc / PR.
+The admission controller needs to be configured to verify deloyment attestations. Verification requires the following metadata:
 
-In this workshop, use Kyverno
+1. Trusted roots, which is the metadata that defines:
+    1. Which evaluators we trust - defined by their identity.
+    1. Which protection type (e.g., service account, cluster ID) each evaluator is authoritative for.
+    1. A partition of the "protection" space each evaluator is authoritative for. 
+    For example, a trusted root could contain (a) public key pubKeyA as evaluator identity, (b) protection type "google service account" and (c) a list of service acocunts as partition. The list of service accounts allows the platform to deploy the relevant verification configuration to the intended partition that we want to protect. A deployment attestation is considered authentic and trusted if it was signed using pubKeyA and contains only the protection type "google service account".
+    1. Required protection types, which is an optional set of mandatory protection types values of a single protection type. A deployment attestation is considered authentic and trusted if it only contains the required protection types. 
+    1. Mode of enforcement, such as "enforce" or "audit". This allows administrators to onboard new teams and roll out policy upgrades in stages.
+    1. Failure handling, which configures how unexpected errors or timeouts during evaluation are handled. Fail open behavior admits deployments by default in such a scenario, whereas fail closed behavior defaults to a rejection. The low latency and reliability of using deployment attestations should make these occurrences rare in comparison to real time evaluation
+
+In this workshop, use the open source policy engine [Kyverno](https://kyverno.io/).
 
 ## Deep dive
 
@@ -60,6 +69,8 @@ $ alias kubectl="minikube kubectl --"
 
 #### Kyverno policy engine
 
+TODO: configuration in details. See deploy att doc.
+
 Install [Kyverno policy engine](https://kyverno.io) as instructed in the [documentation](https://kyverno.io/docs/installation/).
 NOTE: Each Kyverno releases supports a range of Kubernetes version. Check out the [compatibility matrix](https://kyverno.io/docs/installation/#compatibility-matrix) to learn more.
 
@@ -93,7 +104,7 @@ $ kubectl -n kyverno logs -f kyverno-admission-controller-6dd8fd446c-4qck5
 
 ### Admission controller configuration
 
-We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](TODO).
+We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
 To learn about verification for attestations signed with cosign, check out their [documentation](https://kyverno.io/docs/writing-policies/verify-images/sigstore/#keyless-signing-and-verification).
 
 Install the policy engine:
@@ -101,46 +112,85 @@ Install the policy engine:
 ```shell
 $ kubectl apply -f https://raw.githubusercontent.com/laurentsimon/oss-na24-slsa-workshop/main/activities/04/kyverno/slsa-policy.yml
 clusterpolicy.kyverno.io/slsa-policy created
+$ kubectl get cpol
+```
+
+Verification comprises of three files:
+
+1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
+1. A Kyverno enforcer file ([kyverno/slsa-enforcer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml)) that verifies the deployment attestation using the trusted roots.
+
+Clone the repository locally. Then follow the steps:
+
+1. Edit the verification configuration file [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml)
+1. Update the [attestation_creator](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file.
+
+Install the policy engine:
+
+```shell
+$ kubectl apply -f kyverno/slsa-configuration.yml
+$ kubectl apply -f kyverno/slsa-enforcer.yml
 ```
 
 ### Deploy a pod
 
-Let's deploy the container we built in Activity 01. For that, we will use the [ctivities/04/k8/echo-server-deployment.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/04/k8/echo-server-deployment.yml) pod configuration.
+Let's deploy the container we built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml) pod configuration.
+
 
 Follow these steps:
 
-1. Update the 
+1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file.
+1. WARNING: Since we are running Kubernetes cluster locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Edit this value to be the same you configured in your [deployment policy](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4).
+1. Deploy the container:
+
+```shell
+$ kubectl apply -f k8/echo-server-deployment.yml
+deployment.apps/echo-server-deployment created
+```
+
+Run the following commands to confirm the deployment succeeded:
+
+```shell
+$ kubectl get polr
+NAME                                   KIND         NAME                                      PASS   FAIL   WARN   ERROR   SKIP   AGE
+13f78700-4f91-44e6-aa1b-970ed83251dc   ReplicaSet   echo-server-deployment-5bcdd7d764         1      0      0      0       0      4m5s
+6b8c9fe2-89fb-4388-92e3-67abdaf3feb0   Pod          echo-server-deployment-5bcdd7d764-87cxt   1      0      0      0       0      4m35s
+8863a504-63d6-4455-b9dd-79e15f2bd75f   Pod          echo-server-deployment-5bcdd7d764-2rrrm   1      0      0      0       0      4m35s
+977d4976-7ce3-4d97-861a-8a119f3c5e84   Pod          echo-server-deployment-5bcdd7d764-27h96   1      0      0      0       0      4m35s
+c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment                    1      0      0      0       0      4m36s
+```
+
+Now update the pod configuartion with an image that is _not_ allowed to run under this service account:
+
+1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
+
+```shell
+$ kubectl apply -f k8/echo-server-deployment.yml
+...THIS SHOULD FAIL...
+```
+
+Update the pod configuartion back to its initial value.
+
+1. edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
+
+```shell
+$ kubectl apply -f k8/echo-server-deployment.yml
+...THIS SHOULD FAIL...
+```
 
 ### Future work
 
-#### Additional protection
+#### Limitation
 
-Remember to try setting up the protection ACLs to protect the policy and allow teams to edit the files they own. See [here](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) for details.
+To our knowledge, the google service account is not available to a Kubernetes cluster. One way to deploy a real-world example
+if this demo is to bind Kubernetes service account to a google (GCP) service account as described [here](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
 
-#### Pre-submits for CODEOWNER
+#### Support other than serivce account
 
-We must ensure that new team policy files are accompanied by a new CODEOWNER file. If you implement this feature, please share it with us!
-
-#### Deployment of other team's artifacts
-
-In this demo, the attestations are stored along the container. This means that to store the delpoyment attestation, the team calling the evaluator need write access to the registry, so it will not work if you try to delpoy an image that you do not own since you will not have write access to the registry account. The workaround is to create an organization regiistry account on docker, and use that to store all attestations. Follow these steps:
-
-1. Update the [Sign function](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the delpoyment attestation. This function is also used for signing the release attestation, but we shoudl not change the logics for signing the release attestation. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [here](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281) for example.
-2. Add an option to the evaluator CLI.
-3. Update your deployment evaluator to use the new option.
-4. Share your code with us! We can merge it in [slsa-policy repository](https://github.com/laurentsimon/slsa-policy).
-
-### UX improments
-
-In this Activity, users need to explicitly call the delpoyment policy evaluator from CI. We may improve UX by integrating the evaluation in gitops tooling such as ArgoCD or as a kubectl plugin. If you are interested in implementing such solution, let us know!
+Can you update the policy engine to support other types of protections, e.g., GKE cluster ID, etc. 
 
 ## Take the quizz!
 
 After completing this activity, you should be able to answer the following questions:
 
-1. What is a deployment policy?
-2. What invariant is enforced across all policy files?
-3. What are trusted roots? Who configures them?
-4. What is a deployment attestation? Who creates it? What information does it contain?
-5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to add a policy URI field and verify it. TODO: Link to intoto attestation specs
-6. What improvements can we make to improve UX for teams?
+1. What metadata is needed to configure the admission controller?
