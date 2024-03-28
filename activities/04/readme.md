@@ -14,16 +14,17 @@ To complete this activity, you need:
 
 ### Admission controller
 
-The admission controller is the component that deploy artifacts / containers. It needs to be configured to verify deloyment attestations. Verification requires the following metadata:
+The admission controller is the component that deploys artifacts / containers. It needs to be configured to verify deloyment attestations. Verification requires the following metadata:
 
 1. Trusted roots, which is the metadata that defines:
     1. Which evaluators we trust - defined by their identity.
     1. Which protection type (e.g., service account, cluster ID) each evaluator is authoritative for.
-    1. A partition of the "protection" space each evaluator is authoritative for. 
-    For example, a trusted root could contain (a) public key pubKeyA as evaluator identity, (b) protection type "google service account" and (c) a list of service acocunts as partition. The list of service accounts allows the platform to deploy the relevant verification configuration to the intended partition that we want to protect. A deployment attestation is considered authentic and trusted if it was signed using pubKeyA and contains only the protection type "google service account".
+    1. A partition of the "protection" space each evaluator is authoritative for. The list of service accounts allows the platform to deploy the relevant verification configuration to the intended partition that we want to protect.
     1. Required protection types, which is an optional set of mandatory protection types values of a single protection type. A deployment attestation is considered authentic and trusted if it only contains the required protection types. 
-    1. Mode of enforcement, such as "enforce" or "audit". This allows administrators to onboard new teams and roll out policy upgrades in stages.
-    1. Failure handling, which configures how unexpected errors or timeouts during evaluation are handled. Fail open behavior admits deployments by default in such a scenario, whereas fail closed behavior defaults to a rejection. The low latency and reliability of using deployment attestations should make these occurrences rare in comparison to real time evaluation
+1. Mode of enforcement, such as "enforce" or "audit". This allows administrators to onboard new teams and roll out policy upgrades in stages.
+1. Failure handling, which configures how unexpected errors or timeouts during evaluation are handled. Fail open behavior admits deployments by default in such a scenario, whereas fail closed behavior defaults to a rejection. The low latency and reliability of using deployment attestations should make these occurrences rare in comparison to real time evaluation
+
+For example, a trusted root could contain (a) public key pubKeyA as evaluator identity, (b) protection type "google service account", (c) a list of service accounts as partition and (d) service account as required protection type.  A deployment attestation is considered authentic and trusted if it is signed using pubKeyA and contains only the protection type "google service account".
 
 In this workshop, use the open source policy engine [Kyverno](https://kyverno.io/).
 
