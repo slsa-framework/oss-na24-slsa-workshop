@@ -70,9 +70,7 @@ $ alias kubectl="minikube kubectl --"
 
 #### Kyverno policy engine
 
-Install [Kyverno policy engine](https://kyverno.io) as instructed in the [documentation](https://kyverno.io/docs/installation/).
-
-Install Kyverno by running:
+Install [Kyverno policy engine](https://kyverno.io) by running:
 
 ```shell
 # Install either the official installation file
@@ -104,14 +102,14 @@ $ kubectl -n kyverno logs -f kyverno-admission-controller-6dd8fd446c-4qck5
 
 We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
 
-There are two relevant files to configure our admission controller:
+There are two relevant files to configure it:
 
 1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
 1. A Kyverno enforcer file [kyverno/slsa-enforcer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml) that verifies the deployment attestation using the trusted roots.
 
 Clone the repository locally. Then follow the steps:
 
-1. Update the [attestation_creator](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator who created your deloyment attestation in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
+1. Update the [attestation_creator](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator identity that created your deployment attestation in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
 1. Install the policy engine
 
 ```shell
@@ -147,7 +145,7 @@ NAME                                   KIND         NAME                        
 c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment                    1      0      0      0       0      4m36s
 ```
 
-Now update the pod configuartion with an image that is _not_ allowed to run under this service account:
+Now update the pod definition with an image that is _not_ allowed to run under this service account:
 
 1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
 
@@ -156,7 +154,7 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 ...THIS SHOULD FAIL...
 ```
 
-Update the pod configuartion back to its original value.
+Update the pod definition back to its original value.
 
 1. Edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
 
