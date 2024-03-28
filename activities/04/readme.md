@@ -14,7 +14,7 @@ To complete this activity, you need:
 
 ### Admission controller
 
-The admission controller is the component that deploys artifacts / containers. It needs to be configured to verify deloyment attestations. Verification requires the following metadata:
+The admission controller is the component that deploys artifacts / containers. It needs to be configured to verify deployment attestations. Verification requires the following metadata:
 
 1. Trusted roots, which is the metadata that defines:
     1. Which evaluators we trust - defined by their identity.
@@ -103,12 +103,11 @@ $ kubectl -n kyverno logs -f kyverno-admission-controller-6dd8fd446c-4qck5
 ### Admission controller configuration
 
 We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
-To learn about verification for attestations signed with cosign, check out their [documentation](https://kyverno.io/docs/writing-policies/verify-images/sigstore/#keyless-signing-and-verification).
 
-There are two relevant files:
+There are two relevant files to configure our admission controller:
 
 1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
-1. A Kyverno enforcer file ([kyverno/slsa-enforcer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml)) that verifies the deployment attestation using the trusted roots.
+1. A Kyverno enforcer file [kyverno/slsa-enforcer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml) that verifies the deployment attestation using the trusted roots.
 
 Clone the repository locally. Then follow the steps:
 
@@ -122,13 +121,13 @@ $ kubectl apply -f kyverno/slsa-enforcer.yml
 
 ### Deploy a pod
 
-Let's deploy the container we built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml) pod configuration.
+Let's deploy the container we built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml) pod definition.
 
 
 Follow these steps:
 
-1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file.
-1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Edit the value to the service account configured in your deployment policy for the container.
+1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the pod definition.
+1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Set the value to the service account configured in your deployment policy for the container.
 1. Deploy the container
 
 ```shell
@@ -170,8 +169,8 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 
 #### Limitation
 
-To our knowledge, the google service account is not available to a Kubernetes cluster. One way to deploy a real-world example
-of this demo is to bind Kubernetes service account to a google (GCP) service account as described [here](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
+To our knowledge, the google service account is not available to Google's GKE. One way to deploy a real-world example
+of this demo is to bind Kubernetes service account to a google service account as described [here](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
 
 #### Support other protection types
 
