@@ -23,7 +23,7 @@ The schedule and presentations are available in the [slides](https://docs.google
 5. [Activity 03: Deployment policy](./activities/03/readme.md)
 6. [Activity 04: Kyverno setup](./activities/04/readme.md)
 7. Presentation: SLSA for AI TODO: link
-8. [Activity 04: Model integrity protection](./activities/05/readme.md)
+8. [Activity 05: Model integrity protection](./activities/05/readme.md)
 9. Presentation + Demo: SLSA for Jupyter notebooks TODO: link
 
  
