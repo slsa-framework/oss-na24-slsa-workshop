@@ -19,7 +19,7 @@ The admission controller is the component that deploys artifacts / containers. I
 1. Trusted roots, which is the metadata that defines:
     1. Which evaluators we trust - defined by their identity.
     1. Which protection type (e.g., service account, cluster ID) each evaluator is authoritative for.
-    1. Required protection types, which is an optional set of mandatory protection types. A deployment attestation is considered authentic and trusted if it only contains the required protection types. 
+    1. Required protection types, which is an optional set of mandatory protection types.To be considered authentic and trusted, a deployment attestation must contain the required protection types. 
 1. Mode of enforcement, such as "enforce" or "audit". This allows administrators to onboard new teams and roll out policy upgrades in stages.
 1. Failure handling, which configures how unexpected errors or timeouts during evaluation are handled. Fail open behavior admits deployments by default in such a scenario, whereas fail closed behavior defaults to a rejection. The low latency and reliability of using deployment attestations should make these occurrences rare in comparison to real time evaluation
 
