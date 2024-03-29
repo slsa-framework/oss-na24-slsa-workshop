@@ -23,7 +23,7 @@ The admission controller is the component that deploys artifacts / containers. I
 1. Mode of enforcement, such as "enforce" or "audit". This allows administrators to onboard new teams and roll out policy upgrades in stages.
 1. Failure handling, which configures how unexpected errors or timeouts during evaluation are handled. Fail open behavior admits deployments by default in such a scenario, whereas fail closed behavior defaults to a rejection. The low latency and reliability of using deployment attestations should make these occurrences rare in comparison to real time evaluation
 
-For example, a trusted root could contain (a) public key pubKeyA as evaluator identity, (b) protection type "google service account", (c) a list of service accounts as partition and (d) service account as required protection type.  A deployment attestation is considered authentic and trusted if it is signed using pubKeyA and contains only the protection type "google service account".
+For example, a trusted root could contain (a) public key pubKeyA as evaluator identity, (b) protection type "google service account" and "Kubernetes namespace" and (c) "google service account" as required protection type.  A deployment attestation is considered authentic and trusted if it is signed using pubKeyA and contains only the protection type "google service account".
 
 In this workshop, we use the open source policy engine [Kyverno](https://kyverno.io/).
 
