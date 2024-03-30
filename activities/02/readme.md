@@ -14,7 +14,7 @@ To complete this activity, you need:
 
 ### Release policy and attestation
 
-A release policy is a set of requirements that software must meet to be released: This could be passing a vulnerability scan, that the correct source repository was used, that the code was not tampered with (i.e. a minimum SLSA level), etc. As an organization, this policy provides visibility and auditability into their supply-chain. Optionally, an organization may _require_ all software meet a minimum set of requirements before releasing internally or externally on public package registries.
+A release policy is a set of requirements that software must meet to be released: This could be passing a vulnerability scan, that the correct source repository was used, that the code was not tampered with (i.e. a minimum SLSA level), etc. As an organization, this policy provides visibility and auditability into their supply-chain. An organization may require all software meet a minimum set of requirements before releasing internally or externally on public package registries.
 
 After evaluating a release policy, the policy evaluator generates a so-called "release attestation" as evidence that the policy evaluation succeeded. The attestation expresses the fact that software is ready to be released and optionally contains information about the properties of the artifact evaluated during evaluation, such as its SLSA level or whether it was scanned for vulnerabilities, etc. The attestation can be used in two ways:
 
