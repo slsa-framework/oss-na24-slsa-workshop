@@ -30,7 +30,7 @@ In this workshop, due to time constraint, we will focus on the use case of teams
 
 ### Deployment policy setup
 
-The delpoyment policy is stored alongside the release policy. The policy is stored in a central location administered by the organization.
+The deployment policy is stored alongside the release policy. The policy is stored in a central location administered by the organization.
 This gives the organization a central view of all the projects and their configuration. In this activity, we store the policy in a GitHub repository owned by the organization. Like the release policy, the deployment policy is sub-devided into:
 
 1. A configuration maintained by the organization which applies to all teams within the organization
@@ -46,7 +46,7 @@ we will assume these protections are in place. If you wish to implement these pr
 
 #### Organization roots
 
-(Already done in Activity 02): Fork this repository [https://github.com/laurentsimon/oss-na24-slsa-workshop-organization](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/fork).
+(Already done in [Activity 02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Fork this repository [https://github.com/laurentsimon/oss-na24-slsa-workshop-organization](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/fork).
 
 Under [policies/deployment](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/tree/main/policies/deployment) are the configuration files for the deployment policy. The file maintained by the organization admins
 is [org.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
@@ -103,7 +103,7 @@ Follow these steps:
 
 ##### Verify deployment attestation manually
 
-To verify the delpoyment attestation and inspect it, you can use cosign. To install it, follow the [instructions](https://github.com/sigstore/cosign?tab=readme-ov-file#installation).
+To verify the deployment attestation and inspect it, you can use cosign. To install it, follow the [instructions](https://github.com/sigstore/cosign?tab=readme-ov-file#installation).
 
 Make sure you have access to your image by authenticating to docker:
 
@@ -127,7 +127,7 @@ $ path/to/cosign verify-attestation "${image}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
-The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission controller must also verify each `scope` field against the deployment environment. In our demo, the google service account must be compared to the service account the pod is running under.
+The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission controller must also verify each `scope` field against the deployment environment. In our demo, the google service account must be compared to the service account the pod is running under. We will do that in [Activity 04](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/04/readme.md).
 
 ### Do it at home
 
@@ -141,9 +141,9 @@ We must ensure that new team policy files are accompanied by a new CODEOWNER fil
 
 #### Deployment of other team's artifacts
 
-In this demo, the attestations are stored along the container. This means that to store the delpoyment attestation, the team calling the evaluator need write access to the registry, so it will not work if you try to delpoy an image that you do not own since you will not have write access to the registry account. The workaround is to create an organization regiistry account on docker, and use that to store all attestations. Follow these steps:
+In this demo, the attestations are stored along the container. This means that to store the deployment attestation, the team calling the evaluator need write access to the registry, so it will not work if you try to delpoy an image that you do not own since you will not have write access to the registry account. The workaround is to create an organization regiistry account on docker, and use that to store all attestations. Follow these steps:
 
-1. Update the [Sign function](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the delpoyment attestation. This function is also used for signing the release attestation, but we shoudl not change the logics for signing the release attestation. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [here](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281) for example.
+1. Update the [Sign function](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the deployment attestation. This function is also used for signing the release attestation, but we shoudl not change the logics for signing the release attestation. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [here](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281) for example.
 2. Add an option to the evaluator CLI.
 3. Update your deployment evaluator to use the new option.
 4. Share your code with us! We can merge it in [slsa-policy repository](https://github.com/laurentsimon/slsa-policy).
@@ -154,7 +154,7 @@ Can you update the policy engine to support other types of protections, e.g., GK
 
 ### UX improments
 
-In this Activity, users need to explicitly call the delpoyment policy evaluator from CI. We may improve UX by integrating the evaluation in gitops tooling such as ArgoCD or as a kubectl plugin. If you are interested in implementing such solution, let us know!
+In this Activity, users need to explicitly call the deployment policy evaluator from CI. We may improve UX by integrating the evaluation in gitops tooling such as ArgoCD or as a kubectl plugin. If you are interested in implementing such solution, let us know!
 
 ## Take the quizz!
 
