@@ -14,7 +14,7 @@ To complete this activity, you need:
 
 ### Deployment policy and attestation
 
-A delpoyment policy expresses which environment an artifact is allowed to be deployed to. Binding an artifact to its expected deployment environment is one of the principles used internally at Google; it is also a feature provided by [Google Cloud Binauthz](https://cloud.google.com/binary-authorization/). A deployment environment may be a cloud machine where we deploy containers, a developer workstation where we deploy packages (pip, npm, etc.) or even an Android device where we deploy applications. 
+A deployment policy expresses which environment an artifact is allowed to be deployed to. Binding an artifact to its expected deployment environment is one of the principles used internally at Google; it is also a feature provided by [Google Cloud Binauthz](https://cloud.google.com/binary-authorization/). A deployment environment may be a cloud machine where we deploy containers, a developer workstation where we deploy packages (pip, npm, etc.) or even an Android device where we deploy applications. 
 
 When deploying an artifact (e.g., a container, a smartphone app), we want to restrict which environment the artifact is allowed to be deployed / run. The environment has access to resources we want to protect, such as a cloud service account, a Spiffe ID, a Kubernetes pod ID, an SEAndroid context, etc. The deployment attestation authoritatively binds an artifact to a deployment environment where an artifact is allowed to be deployed.
 
