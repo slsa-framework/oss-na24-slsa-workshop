@@ -26,6 +26,8 @@ In this activity, we will define a deployment environment by its google service 
 
 In this workshop, due to time constraint, we will focus on the use case of teams deploying containers that they build. Deployment of containers built by other teams is left as [future work](#deployment-of-other-teams-artifacts).
 
+For more information about the deployment attestation schema, see [specs](attestations/deployment.md).
+
 ## Deep dive
 
 ### Deployment policy setup
@@ -129,6 +131,8 @@ $ path/to/cosign verify-attestation "${image}" \
 
 The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission controller must also verify each `scope` field against the deployment environment. In our demo, the google service account must be compared to the service account the pod is running under. We will do that in [Activity 04](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/04/readme.md).
 
+For more information about the deployment attestation schema, see [specs](attestations/deployment.md).
+
 ### Do it at home
 
 #### Set up ACLs
@@ -150,7 +154,7 @@ In this demo, the attestations are stored along the container. This means that t
 
 #### Challenge yourself
 
-Can you update the policy engine to support other types of protections, e.g., GKE cluster ID, etc. When you implement this feature, make sure to think whether there are invariants your policy configuration needs For example, if you were to implement a protection for Kubernetes namespaces, you would not be able to enforce invariant on it, because namespaces are _not_ unique across projects.
+Can you update the policy engine to support other types of protections, e.g., GKE cluster ID, etc. When you implement this feature, make sure to think whether there are invariants your policy configuration needs. For example, if you were to implement a protection for Kubernetes namespaces, you would not be able to enforce invariant on it, because namespaces are _not_ unique across projects.
 
 ### UX improments
 
@@ -164,5 +168,5 @@ After completing this activity, you should be able to answer the following quest
 2. What invariant is enforced across all policy files?
 3. What are trusted roots? Who configures them?
 4. What is a deployment attestation? Who creates it? What information does it contain?
-5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to add a policy URI field and verify it. TODO: Link to intoto attestation specs
+5. What metadata is needed to verify a deployment attestation? What happens if the invariant from (2) were not satisfied? Hint: We need to add a policy URI field to the `scopes` field and verify it. For more information about the deployment attestation schema, see [specs](attestations/deployment.md).
 6. What improvements can we make to improve UX for teams?
