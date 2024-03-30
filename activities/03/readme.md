@@ -88,7 +88,7 @@ Follow these steps:
 
 ##### Call the evaluator in CI
 
-To evaluate the release policy, the evaluator must be called from CI. It is up to teams to decide _when_ to do that. In this activity, we provide a helper workflow
+To evaluate the deployment policy, the evaluator is called from CI in this demo. It is up to teams to decide _when_ to do that. In this activity, we provide a helper workflow
 [.github/workflows/deploy-image.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml) that can be called manually for testing purposes. In practice, teams would call it automatically before sending a depoyment request to their admission controller.
 
 If the policy evaluation succeeds, the evaluator creates a deployment attestation and signs it with [Sigstore](sigstore.dev). The attestation is stored along the container on the registry, [a-la-cosign](https://github.com/sigstore/cosign). NOTE: SLSA does not prescribe where to store attestations, nor does it prescribe the use of Sigstore for signing.
@@ -97,8 +97,8 @@ Follow these steps:
 
 1. Update the [organization workflow call](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L41) that evaluates the deployment policy.
 1. Update the [registry-username](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L47) to yours.
-1. (Already done in Activity 01|02): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
-1. (Already done in Activity 01|02): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+1. (Already done in Activity [01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
+1. (Already done in Activity [01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
 
 ##### Verify deployment attestation manually
