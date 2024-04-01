@@ -413,7 +413,7 @@ spec:
                           embed an underspecified API type they do not control. \n
                           Instead of using this type, create a locally provided and
                           used type that is well-focused on your reference. For example,
-                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
+                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/publish-1.17/admissionregistration/v1/types.go#L533
                           ."
                         properties:
                           apiVersion:
@@ -719,7 +719,7 @@ spec:
                           embed an underspecified API type they do not control. \n
                           Instead of using this type, create a locally provided and
                           used type that is well-focused on your reference. For example,
-                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
+                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/publish-1.17/admissionregistration/v1/types.go#L533
                           ."
                         properties:
                           apiVersion:
@@ -3565,7 +3565,7 @@ spec:
                           embed an underspecified API type they do not control. \n
                           Instead of using this type, create a locally provided and
                           used type that is well-focused on your reference. For example,
-                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
+                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/publish-1.17/admissionregistration/v1/types.go#L533
                           ."
                         properties:
                           apiVersion:
@@ -3871,7 +3871,7 @@ spec:
                           embed an underspecified API type they do not control. \n
                           Instead of using this type, create a locally provided and
                           used type that is well-focused on your reference. For example,
-                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
+                          ServiceReferences for admission registration: https://github.com/kubernetes/api/blob/publish-1.17/admissionregistration/v1/types.go#L533
                           ."
                         properties:
                           apiVersion:
@@ -8904,7 +8904,7 @@ spec:
                                   nested `any` or `all` statements. A direct list
                                   of conditions (without `any` or `all` statements
                                   is supported for backwards compatibility but will
-                                  be deprecated in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                                  be deprecated in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                                 x-kubernetes-preserve-unknown-fields: true
                               uid:
                                 description: UID specifies the resource uid.
@@ -8923,7 +8923,7 @@ spec:
                         The declaration can contain nested `any` or `all` statements.
                         A direct list of conditions (without `any` or `all` statements
                         is supported for backwards compatibility but will be deprecated
-                        in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                        in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                       x-kubernetes-preserve-unknown-fields: true
                     skipBackgroundRequests:
                       default: true
@@ -9265,7 +9265,7 @@ spec:
                                 an `any` or `all` statement. A direct list of conditions
                                 (without `any` or `all` statements) is also supported
                                 for backwards compatibility but will be deprecated
-                                in the next major release. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
+                                in the next major publish. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                               x-kubernetes-preserve-unknown-fields: true
                           type: object
                         foreach:
@@ -9462,7 +9462,7 @@ spec:
                                       under an `any` or `all` statement. A direct
                                       list of conditions (without `any` or `all` statements)
                                       is also supported for backwards compatibility
-                                      but will be deprecated in the next major release.
+                                      but will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                     x-kubernetes-preserve-unknown-fields: true
                                 type: object
@@ -13345,7 +13345,7 @@ spec:
                                       nested `any` or `all` statements. A direct list
                                       of conditions (without `any` or `all` statements
                                       is supported for backwards compatibility but
-                                      will be deprecated in the next major release.
+                                      will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/preconditions/'
                                     x-kubernetes-preserve-unknown-fields: true
                                   uid:
@@ -13365,7 +13365,7 @@ spec:
                             The declaration can contain nested `any` or `all` statements.
                             A direct list of conditions (without `any` or `all` statements
                             is supported for backwards compatibility but will be deprecated
-                            in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                            in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                           x-kubernetes-preserve-unknown-fields: true
                         skipBackgroundRequests:
                           default: true
@@ -13725,7 +13725,7 @@ spec:
                                     under an `any` or `all` statement. A direct list
                                     of conditions (without `any` or `all` statements)
                                     is also supported for backwards compatibility
-                                    but will be deprecated in the next major release.
+                                    but will be deprecated in the next major publish.
                                     See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                   x-kubernetes-preserve-unknown-fields: true
                               type: object
@@ -13934,7 +13934,7 @@ spec:
                                           list of conditions (without `any` or `all`
                                           statements) is also supported for backwards
                                           compatibility but will be deprecated in
-                                          the next major release. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
+                                          the next major publish. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                         x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                   elementScope:
@@ -17483,7 +17483,7 @@ spec:
                                   nested `any` or `all` statements. A direct list
                                   of conditions (without `any` or `all` statements
                                   is supported for backwards compatibility but will
-                                  be deprecated in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                                  be deprecated in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                                 x-kubernetes-preserve-unknown-fields: true
                               uid:
                                 description: UID specifies the resource uid.
@@ -18220,7 +18220,7 @@ spec:
                                       under an `any` or `all` statement. A direct
                                       list of conditions (without `any` or `all` statements)
                                       is also supported for backwards compatibility
-                                      but will be deprecated in the next major release.
+                                      but will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                     x-kubernetes-preserve-unknown-fields: true
                                 type: object
@@ -22077,7 +22077,7 @@ spec:
                                       nested `any` or `all` statements. A direct list
                                       of conditions (without `any` or `all` statements
                                       is supported for backwards compatibility but
-                                      will be deprecated in the next major release.
+                                      will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/preconditions/'
                                     x-kubernetes-preserve-unknown-fields: true
                                   uid:
@@ -22097,7 +22097,7 @@ spec:
                             The declaration can contain nested `any` or `all` statements.
                             A direct list of conditions (without `any` or `all` statements
                             is supported for backwards compatibility but will be deprecated
-                            in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                            in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                           x-kubernetes-preserve-unknown-fields: true
                         skipBackgroundRequests:
                           default: true
@@ -22457,7 +22457,7 @@ spec:
                                     under an `any` or `all` statement. A direct list
                                     of conditions (without `any` or `all` statements)
                                     is also supported for backwards compatibility
-                                    but will be deprecated in the next major release.
+                                    but will be deprecated in the next major publish.
                                     See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                   x-kubernetes-preserve-unknown-fields: true
                               type: object
@@ -22666,7 +22666,7 @@ spec:
                                           list of conditions (without `any` or `all`
                                           statements) is also supported for backwards
                                           compatibility but will be deprecated in
-                                          the next major release. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
+                                          the next major publish. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                         x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                   elementScope:
@@ -26670,7 +26670,7 @@ spec:
                                   nested `any` or `all` statements. A direct list
                                   of conditions (without `any` or `all` statements
                                   is supported for backwards compatibility but will
-                                  be deprecated in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                                  be deprecated in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                                 x-kubernetes-preserve-unknown-fields: true
                               uid:
                                 description: UID specifies the resource uid.
@@ -26689,7 +26689,7 @@ spec:
                         The declaration can contain nested `any` or `all` statements.
                         A direct list of conditions (without `any` or `all` statements
                         is supported for backwards compatibility but will be deprecated
-                        in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                        in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                       x-kubernetes-preserve-unknown-fields: true
                     skipBackgroundRequests:
                       default: true
@@ -27031,7 +27031,7 @@ spec:
                                 an `any` or `all` statement. A direct list of conditions
                                 (without `any` or `all` statements) is also supported
                                 for backwards compatibility but will be deprecated
-                                in the next major release. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
+                                in the next major publish. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                               x-kubernetes-preserve-unknown-fields: true
                           type: object
                         foreach:
@@ -27228,7 +27228,7 @@ spec:
                                       under an `any` or `all` statement. A direct
                                       list of conditions (without `any` or `all` statements)
                                       is also supported for backwards compatibility
-                                      but will be deprecated in the next major release.
+                                      but will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                     x-kubernetes-preserve-unknown-fields: true
                                 type: object
@@ -31112,7 +31112,7 @@ spec:
                                       nested `any` or `all` statements. A direct list
                                       of conditions (without `any` or `all` statements
                                       is supported for backwards compatibility but
-                                      will be deprecated in the next major release.
+                                      will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/preconditions/'
                                     x-kubernetes-preserve-unknown-fields: true
                                   uid:
@@ -31132,7 +31132,7 @@ spec:
                             The declaration can contain nested `any` or `all` statements.
                             A direct list of conditions (without `any` or `all` statements
                             is supported for backwards compatibility but will be deprecated
-                            in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                            in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                           x-kubernetes-preserve-unknown-fields: true
                         skipBackgroundRequests:
                           default: true
@@ -31492,7 +31492,7 @@ spec:
                                     under an `any` or `all` statement. A direct list
                                     of conditions (without `any` or `all` statements)
                                     is also supported for backwards compatibility
-                                    but will be deprecated in the next major release.
+                                    but will be deprecated in the next major publish.
                                     See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                   x-kubernetes-preserve-unknown-fields: true
                               type: object
@@ -31701,7 +31701,7 @@ spec:
                                           list of conditions (without `any` or `all`
                                           statements) is also supported for backwards
                                           compatibility but will be deprecated in
-                                          the next major release. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
+                                          the next major publish. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                         x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                   elementScope:
@@ -35251,7 +35251,7 @@ spec:
                                   nested `any` or `all` statements. A direct list
                                   of conditions (without `any` or `all` statements
                                   is supported for backwards compatibility but will
-                                  be deprecated in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                                  be deprecated in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                                 x-kubernetes-preserve-unknown-fields: true
                               uid:
                                 description: UID specifies the resource uid.
@@ -35988,7 +35988,7 @@ spec:
                                       under an `any` or `all` statement. A direct
                                       list of conditions (without `any` or `all` statements)
                                       is also supported for backwards compatibility
-                                      but will be deprecated in the next major release.
+                                      but will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                     x-kubernetes-preserve-unknown-fields: true
                                 type: object
@@ -39845,7 +39845,7 @@ spec:
                                       nested `any` or `all` statements. A direct list
                                       of conditions (without `any` or `all` statements
                                       is supported for backwards compatibility but
-                                      will be deprecated in the next major release.
+                                      will be deprecated in the next major publish.
                                       See: https://kyverno.io/docs/writing-policies/preconditions/'
                                     x-kubernetes-preserve-unknown-fields: true
                                   uid:
@@ -39865,7 +39865,7 @@ spec:
                             The declaration can contain nested `any` or `all` statements.
                             A direct list of conditions (without `any` or `all` statements
                             is supported for backwards compatibility but will be deprecated
-                            in the next major release. See: https://kyverno.io/docs/writing-policies/preconditions/'
+                            in the next major publish. See: https://kyverno.io/docs/writing-policies/preconditions/'
                           x-kubernetes-preserve-unknown-fields: true
                         skipBackgroundRequests:
                           default: true
@@ -40225,7 +40225,7 @@ spec:
                                     under an `any` or `all` statement. A direct list
                                     of conditions (without `any` or `all` statements)
                                     is also supported for backwards compatibility
-                                    but will be deprecated in the next major release.
+                                    but will be deprecated in the next major publish.
                                     See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                   x-kubernetes-preserve-unknown-fields: true
                               type: object
@@ -40434,7 +40434,7 @@ spec:
                                           list of conditions (without `any` or `all`
                                           statements) is also supported for backwards
                                           compatibility but will be deprecated in
-                                          the next major release. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
+                                          the next major publish. See: https://kyverno.io/docs/writing-policies/validate/#deny-rules'
                                         x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                   elementScope:
@@ -43645,7 +43645,7 @@ spec:
                       embed an underspecified API type they do not control. \n Instead
                       of using this type, create a locally provided and used type
                       that is well-focused on your reference. For example, ServiceReferences
-                      for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
+                      for admission registration: https://github.com/kubernetes/api/blob/publish-1.17/admissionregistration/v1/types.go#L533
                       ."
                     properties:
                       apiVersion:
@@ -44011,7 +44011,7 @@ spec:
                       embed an underspecified API type they do not control. \n Instead
                       of using this type, create a locally provided and used type
                       that is well-focused on your reference. For example, ServiceReferences
-                      for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
+                      for admission registration: https://github.com/kubernetes/api/blob/publish-1.17/admissionregistration/v1/types.go#L533
                       ."
                     properties:
                       apiVersion:

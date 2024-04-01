@@ -18,8 +18,8 @@ The schedule and presentations are available in the [slides](https://docs.google
 
 1. Presentation: Introduction to SLSA TODO: link
 2. [Activity 01: Generate and verify SLSA provenance](./activities/01/readme.md)
-3. Presentation: Release and deployment policies TODO: link
-4. [Activity 02: Release policy](./activities/02/readme.md)
+3. Presentation: Publish and deployment policies TODO: link
+4. [Activity 02: Publish policy](./activities/02/readme.md)
 5. [Activity 03: Deployment policy](./activities/03/readme.md)
 6. [Activity 04: Kyverno setup](./activities/04/readme.md)
 7. Presentation: SLSA for AI TODO: link
