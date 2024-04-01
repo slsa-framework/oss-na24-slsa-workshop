@@ -14,7 +14,7 @@ To complete this activity, you need:
 
 ### Publish policy and attestation
 
-A publish policy is a set of requirements that software must meet to be publishd: This could be passing a vulnerability scan, that the correct source repository was used, that the code was not tampered with (i.e. a minimum SLSA level), etc. As an organization, this policy provides visibility and auditability into their supply-chain. An organization may require all software meet a minimum set of requirements before releasing internally or externally on public package registries.
+A publish policy is a set of requirements that software must meet to be published: This could be passing a vulnerability scan, that the correct source repository was used, that the code was not tampered with (i.e. a minimum SLSA level), etc. As an organization, this policy provides visibility and auditability into their supply-chain. An organization may require all software meet a minimum set of requirements before releasing internally or externally on public package registries.
 
 After evaluating a publish policy, the policy evaluator generates a so-called "publish attestation" as evidence that the policy evaluation succeeded. The attestation expresses the fact that software is ready to be publishd and optionally contains information about the properties of the artifact evaluated during evaluation, such as its SLSA level or whether it was scanned for vulnerabilities, etc. Note that evaluating a policy prior to generating a publish attestation is _not_ a requirement, but encouraged. The attestation can be used in two ways:
 
