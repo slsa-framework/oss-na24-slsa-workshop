@@ -54,11 +54,11 @@ each trusted root is a SLSA builder allowed to build projects for the organizati
 
 #### Evaluator service
 
-The repository contains a GitHub workflow [.github/workflows/image-publishr.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publishr.yml) which evaluates the publish policy. It contains the following logic:
+The repository contains a GitHub workflow [.github/workflows/image-publisher.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publisher.yml) which evaluates the publish policy. It contains the following logic:
 
-1. [Detects the refs](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publishr.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
-1. [Install the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publishr.yml#L116-L126).
-1. [Run the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publishr.yml#L110-L120).
+1. [Detects the refs](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publisher.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
+1. [Install the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publisher.yml#L116-L126).
+1. [Run the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-publisher.yml#L110-L120).
 
 #### Pre-submits
 
@@ -123,7 +123,7 @@ To verify a publish attestation, use the following command:
 # Update the image as recorded in your logs
 $ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
 # Update the repository name storing your policies.
-$ creator_id="https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/.github/workflows/image-publishr.yml@refs/heads/main"
+$ creator_id="https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
 $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
