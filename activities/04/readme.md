@@ -90,7 +90,7 @@ kyverno       kyverno-cleanup-controller-7c5f8bcd79-pwq2d      1/1     Running  
 kyverno       kyverno-reports-controller-7bdb457748-4xbvj      1/1     Running   0               5s
 ```
 
-Open a new terminal and monitor the logs for the admission controller and keep this terminal open:
+Optional: Open a new terminal and monitor the logs for the admission controller and keep this terminal open:
 
 ```shell
 # Replace 'kyverno-admission-controller-6dd8fd446c-4qck5' with the value for your installation (previous command).
