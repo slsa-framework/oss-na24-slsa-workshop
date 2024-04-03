@@ -14,7 +14,7 @@ Slides for the worshops: [here](https://docs.google.com/presentation/d/1w3AWWdXQ
 
 ## Installation
 
-Get ready with everyting installed prior to joinging the workshop, by following the [installation instructions](./INSTALLATION.md).
+If you have some time to spare, [install the necessary software](./INSTALLATION.md) prior to joinging the workshop.
 
 ## Schedule
 
