@@ -48,7 +48,7 @@ we will assume these protections are in place. If you wish to implement these pr
 
 Fork this repository [https://github.com/slsa-framework/oss-na24-slsa-workshop-organization](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/fork).
 
-Under [policies/publish](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/publish) are the configuration files for the publish policy. The file maintained by the organization admins
+Under directory [policies/publish](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/publish) are the configuration files for the publish policy. The file maintained by the organization admins
 is [org.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/publish/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
 each trusted root is a SLSA builder allowed to build projects for the organization, along with its corresponding SLSA level. For example, the [first listed builder](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/org.json#L5-L8) has `id:https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml`, `slsa_level:3` and is given the short name `github_generator_level_3`.
 
@@ -135,7 +135,7 @@ $ path/to/cosign verify-attestation "${image}" \
 
 #### Set up ACLs
 
-Remember to try setting up the protection ACLs to protect the policy and allow teams to edit the files they own. See [here](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) for details.
+Remember to try setting up the [protection ACLs to protect the policy and allow teams to edit the files they own](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup).
 
 #### Pre-submits for CODEOWNER
 

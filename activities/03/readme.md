@@ -50,7 +50,7 @@ we will assume these protections are in place. If you wish to implement these pr
 
 (Already done in [Activity 02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Fork this repository [https://github.com/slsa-framework/oss-na24-slsa-workshop-organization](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/fork).
 
-Under [policies/deployment](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/deployment) are the configuration files for the deployment policy. The file maintained by the organization admins
+Under directory [policies/deployment](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/deployment) are the configuration files for the deployment policy. The file maintained by the organization admins
 is [org.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
 each trusted root is a "publishr" identity allowed to evaluate the publish policy and generate publish attestations for the organization. For example, the [only listed publishr](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json#L6) has `id:https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-publishr.yml@refs/heads/main` and is trusted to claim up to `max_slsa_level:3`. NOTE: It is important the publishr identity include the reference `refs/heads/main`, since other branches may _not_ be protected.
 
