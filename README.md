@@ -12,6 +12,10 @@ Slides for the worshops: [here](https://docs.google.com/presentation/d/1w3AWWdXQ
 2. A GitHub account
 3. A docker registry account (alternatively you can use GitHub registry)
 
+## Installation
+
+Get ready with everyting installed prior to joinging the workshop, by following the [installation instructions](./INSTALLATION.md).
+
 ## Schedule
 
 The schedule and presentations are available in the [slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
