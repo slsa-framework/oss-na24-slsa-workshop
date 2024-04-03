@@ -33,7 +33,7 @@ In this workshop, we use the open source policy engine [Kyverno](https://kyverno
 
 #### cosign
 
-You should already have cosign installed as required for Activities [02](https://github.com/laurentsimon/oss-na24-slsa-workshop/tree/main/activities/02) and [03](https://github.com/laurentsimon/oss-na24-slsa-workshop/tree/main/activities/03). If that's not the case, run:
+You should already have cosign installed as required for Activities [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/02) and [03](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/03). If that's not the case, run:
 
 ```shell
 $ go install github.com/sigstore/cosign/v2/cmd/cosign@v2.1.1
@@ -76,7 +76,7 @@ Install [Kyverno policy engine](https://kyverno.io) by running:
 $ kubectl create -f ttps://github.com/kyverno/kyverno/publishs/download/v1.11.4/install.yaml
 # or a verbose mode enabled from this repository.
 # -dumpPayload=true and --v=6 for kyverno-admission-controller 
-$ kubectl create -f https://raw.githubusercontent.com/laurentsimon/oss-na24-slsa-workshop/main/activities/04/kyverno/install_verbose_v1.11.4.yml
+$ kubectl create -f https://raw.githubusercontent.com/slsa-framework/oss-na24-slsa-workshop/main/activities/04/kyverno/install_verbose_v1.11.4.yml
 ```
 
 You should now see Kyverno pods:
@@ -99,16 +99,16 @@ $ kubectl -n kyverno logs -f kyverno-admission-controller-6dd8fd446c-4qck5
 
 ### Admission controller configuration
 
-We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
+We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
 
 There are two relevant files to configure it:
 
-1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
-1. A Kyverno enforcer file [kyverno/slsa-enforcer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml) that verifies the deployment attestation using the trusted roots.
+1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
+1. A Kyverno enforcer file [kyverno/slsa-enforcer.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml) that verifies the deployment attestation using the trusted roots.
 
 Clone the repository locally. Then follow the steps:
 
-1. Update the [attestation_creator](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator identity that created your deployment attestation in [Activity 03](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
+1. Update the [attestation_creator](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator identity that created your deployment attestation in [Activity 03](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
 1. Install the policy engine
 
 ```shell
@@ -118,13 +118,13 @@ $ kubectl apply -f kyverno/slsa-enforcer.yml
 
 ### Deploy a pod
 
-Let's deploy the container we built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml) pod definition.
+Let's deploy the container we built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml) pod definition.
 
 
 Follow these steps:
 
-1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the pod definition.
-1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Set the value to the service account configured in your deployment policy for the container.
+1. Edit the [image](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the pod definition.
+1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Set the value to the service account configured in your deployment policy for the container.
 1. Deploy the container
 
 ```shell
@@ -146,7 +146,7 @@ c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment      
 
 Now update the pod definition with an image that is _not_ allowed to run under this service account:
 
-1. Edit the [image](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
+1. Edit the [image](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
@@ -155,7 +155,7 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 
 Update the pod definition back to its original value.
 
-1. Edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
+1. Edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml

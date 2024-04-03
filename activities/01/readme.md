@@ -29,24 +29,24 @@ Read the section [Getting started](https://github.com/slsa-framework/slsa-github
 
 #### Create the workflow
 
-Fork this repository [https://github.com/laurentsimon/oss-na24-slsa-workshop-project1](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1) by clicking this [link](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/fork).
+Fork this repository [https://github.com/slsa-framework/oss-na24-slsa-workshop-project1](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1) by clicking this [link](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/fork).
 
-The repository contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for a hypothetical server. The file contains the following steps:
+The repository contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for a hypothetical server. The file contains the following steps:
 
-1. Authenticate to docker registry, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41).
-1. Build the container and push it to docker registry as "\<repository-name\>-echo-server", see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an environment variable at the top of the workflow, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under [images/echo-server/](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/images/echo-server) and is a simple echo server.
-1. In a seperate job, we call the container generator with the image name and digest, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79). Note that is is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
-1. As a sanity step, we pull the container and run it, see [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
+1. Authenticate to docker registry, see [here](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41).
+1. Build the container and push it to docker registry as "\<repository-name\>-echo-server", see [here](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an environment variable at the top of the workflow, see [here](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under [images/echo-server/](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/images/echo-server) and is a simple echo server.
+1. In a seperate job, we call the container generator with the image name and digest, see [here](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79). Note that is is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
+1. As a sanity step, we pull the container and run it, see [here](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
 
 #### Run the workflow
 
 Follow these steps:
 
-1. Update the [REGISTRY_USERNAME](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
-1. Update the [hardcoded username ](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
+1. Update the [REGISTRY_USERNAME](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
+1. Update the [hardcoded username ](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
 1. Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
 2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e`.
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see example [here](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e`.
 
 
 #### Verify provenance
@@ -65,8 +65,8 @@ To verify your container, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
-$ source_uri=github.com/laurentsimon/oss-na24-slsa-workshop-project1
+$ image=docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+$ source_uri=github.com/slsa-framework/oss-na24-slsa-workshop-project1
 $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
 ```
 
@@ -80,7 +80,7 @@ Pass command `--print-provenance | jq` to see the verified content of the attest
 
 Explore other commands by using the `--help` command. You can read more on the project repository [here](https://github.com/slsa-framework/slsa-verifier).
 
-Run the same verification command but remove the `sha256:xxx` part of the image name: `image=image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See hints [here](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
+Run the same verification command but remove the `sha256:xxx` part of the image name: `image=image=docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See hints [here](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
 
 #### Optional: Verification in a GitHub  workflow
 

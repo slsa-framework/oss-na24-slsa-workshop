@@ -48,24 +48,24 @@ we will assume these protections are in place. If you wish to implement these pr
 
 #### Organization roots
 
-(Already done in [Activity 02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Fork this repository [https://github.com/laurentsimon/oss-na24-slsa-workshop-organization](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/fork).
+(Already done in [Activity 02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Fork this repository [https://github.com/slsa-framework/oss-na24-slsa-workshop-organization](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization) by clicking this [link](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/fork).
 
-Under [policies/deployment](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/tree/main/policies/deployment) are the configuration files for the deployment policy. The file maintained by the organization admins
-is [org.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
-each trusted root is a "publishr" identity allowed to evaluate the publish policy and generate publish attestations for the organization. For example, the [only listed publishr](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json#L6) has `id:https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/.github/workflows/image-publishr.yml@refs/heads/main` and is trusted to claim up to `max_slsa_level:3`. NOTE: It is important the publishr identity include the reference `refs/heads/main`, since other branches may _not_ be protected.
+Under [policies/deployment](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/deployment) are the configuration files for the deployment policy. The file maintained by the organization admins
+is [org.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
+each trusted root is a "publishr" identity allowed to evaluate the publish policy and generate publish attestations for the organization. For example, the [only listed publishr](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json#L6) has `id:https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-publishr.yml@refs/heads/main` and is trusted to claim up to `max_slsa_level:3`. NOTE: It is important the publishr identity include the reference `refs/heads/main`, since other branches may _not_ be protected.
 
 #### Evaluator service
 
-The repository contains a GitHub workflow [.github/workflows/image-deployer.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml) which evaluates the deployment policy. The workflow follows the same structure as the publish policy. It contains the following logic:
+The repository contains a GitHub workflow [.github/workflows/image-deployer.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml) which evaluates the deployment policy. The workflow follows the same structure as the publish policy. It contains the following logic:
 
-1. [Detects the refs](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
-1. [Install the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml#L106-L109).
-1. [Run the policy CLI](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml#L110-L120).
+1. [Detects the refs](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
+1. [Install the policy CLI](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml#L106-L109).
+1. [Run the policy CLI](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/image-deployer.yml#L110-L120).
 
 #### Pre-submits
 
 Across the policy, there is an important invariant to maintain, which is that a service account must be owned by at most _one_ team. In other words, we must ensure that across the policy, a service account is only referenced once across all configuration files. For this, we make use of pre-submits run on pull requests.
-The pre-submits are configured in the workflow file [.github/workflows/pre-submit.deployment-policy.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/pre-submit.deployment-policy.yml). NOTE: Unlike the publish policy, it is fine for any team to reference / use a package, even if it is owned and built by another team. This is by design, i.e., we want anyone in the organization to be able to take another team's artifact / container as a dependency.
+The pre-submits are configured in the workflow file [.github/workflows/pre-submit.deployment-policy.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/.github/workflows/pre-submit.deployment-policy.yml). NOTE: Unlike the publish policy, it is fine for any team to reference / use a package, even if it is owned and built by another team. This is by design, i.e., we want anyone in the organization to be able to take another team's artifact / container as a dependency.
 
 An additional required pre-submit is to ensure that new team policy files are accompanied by a new CODEOWNER file. We leave this as [future work](#pre-submits-for-codeowner).
 
@@ -78,29 +78,29 @@ As explained in [repository protections](#repository-protections), for time cons
 
 ##### Configure the policy
 
-The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under google service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
+The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under google service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
 
-1. A [google_service_account](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the service account deployed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the publish policy. In other words, if a container was publishd for "staging", the deployment policy must contain the same environment value "staging".
-1. A [SLSA level for the builder](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L7). NOTE: The deployment policy uses publish attestations to determine the SLSA levels.
-1. A [list of packages](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L9-L33) allowed to run under the service account.
+1. A [google_service_account](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the service account deployed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the publish policy. In other words, if a container was publishd for "staging", the deployment policy must contain the same environment value "staging".
+1. A [SLSA level for the builder](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L7). NOTE: The deployment policy uses publish attestations to determine the SLSA levels.
+1. A [list of packages](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L9-L33) allowed to run under the service account.
 
 Follow these steps:
 
-1. Update the list of [packages](https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L11) using the container you built in [Activity 01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and publishd in [Activity 02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md).
+1. Update the list of [packages](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L11) using the container you built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and publishd in [Activity 02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md).
 
 ##### Call the evaluator in CI
 
 To evaluate the deployment policy, the evaluator is called from CI in this demo. It is up to teams to decide _when_ to do that. In this activity, we provide a helper workflow
-[.github/workflows/deploy-image.yml](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml) that can be called manually for testing purposes. In practice, teams would call it automatically before sending a depoyment request to their admission controller.
+[.github/workflows/deploy-image.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml) that can be called manually for testing purposes. In practice, teams would call it automatically before sending a depoyment request to their admission controller.
 
 If the policy evaluation succeeds, the evaluator creates a deployment attestation and signs it with [Sigstore](sigstore.dev). The attestation is stored along the container on the registry, [a-la-cosign](https://github.com/sigstore/cosign). NOTE: SLSA does not prescribe where to store attestations, nor does it prescribe the use of Sigstore for signing.
 
 Follow these steps:
 
-1. Update the [organization workflow call](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L41) that evaluates the deployment policy.
-1. Update the [registry-username](https://github.com/laurentsimon/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L47) to yours.
-1. (Already done in Activity [01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
-1. (Already done in Activity [01](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+1. Update the [organization workflow call](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L41) that evaluates the deployment policy.
+1. Update the [registry-username](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L47) to yours.
+1. (Already done in Activity [01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
+1. (Already done in Activity [01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
 
 ##### Verify deployment attestation manually
@@ -119,9 +119,9 @@ To verify a deployment attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+$ image=docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
 # Update the repository name storing your policies.
-$ creator_id="https://github.com/laurentsimon/oss-na24-slsa-workshop-organization/.github/workflows/image-deployer.yml@refs/heads/main"
+$ creator_id="https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-deployer.yml@refs/heads/main"
 $ type=https://slsa.dev/deployment/v0.1
 $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
@@ -129,7 +129,7 @@ $ path/to/cosign verify-attestation "${image}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
-The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission controller must also verify each `scope` field against the deployment environment. In our demo, the google service account must be compared to the service account the pod is running under. We will do that in [Activity 04](https://github.com/laurentsimon/oss-na24-slsa-workshop/blob/main/activities/04/readme.md).
+The command above only verifies the authenticity of the attestation, i.e., that it was created by the right entity (the reusable workflow). In practice, before a container is deployed, the admission controller must also verify each `scope` field against the deployment environment. In our demo, the google service account must be compared to the service account the pod is running under. We will do that in [Activity 04](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/04/readme.md).
 
 For more information about the deployment attestation schema, see [specs](/attestations/deployment.md).
 
