@@ -105,7 +105,7 @@ Follow these steps:
 
 ##### Verify deployment attestation manually
 
-To verify the deployment attestation and inspect it, you can use cosign. To install it, follow the [instructions](https://github.com/sigstore/cosign?tab=readme-ov-file#installation).
+To verify the publish attestation and inspect it, you can use cosign. Install [cosign](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#cosign).
 
 Make sure you have access to your image by authenticating to docker:
 

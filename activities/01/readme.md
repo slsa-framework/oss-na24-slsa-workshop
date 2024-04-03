@@ -51,7 +51,7 @@ Follow these steps:
 
 #### Verify provenance
 
-To install slsa-verifier, follow the [instructions]https://github.com/slsa-framework/slsa-verifier?tab=readme-ov-file#option-1-install-via-go.
+Install the [slsa-verifier](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#slsa-verifier).
 
 Make sure you have access to your image by authenticating to docker:
 

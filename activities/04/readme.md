@@ -33,28 +33,15 @@ In this workshop, we use the open source policy engine [Kyverno](https://kyverno
 
 #### cosign
 
-You should already have cosign installed as required for Activities [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/02) and [03](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/03). If that's not the case, run:
-
-```shell
-$ go install github.com/sigstore/cosign/v2/cmd/cosign@v2.1.1
-```
+You should already have cosign installed as required for Activities [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/02) and [03](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/03). If that's not the case, follow the [installation instructions](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#cosign).
 
 #### Local Kubernetes
 
 In this demo, we use a local Kubernetes installation called [minikube](https://minikube.sigs.k8s.io/docs/start/).
 
-To install minikube, follow the instructions [here](https://minikube.sigs.k8s.io/docs/start/).
+To install minikube, follow the [instructions](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#minikube).
 
-If you're on Ubuntu, you can use apt:
-
-```shell
-$ sudo apt install minikube
-$ minikube version
-minikube version: v1.31.2
-commit: fd7ecd9c4599bef9f04c0986c4a0187f98a4396e
-```
-
-Then start it:
+Start minikube:
 
 ```shell
 # Kyverno 1.11.4 supports Kubernetes version v1.25-v.18, see https://kyverno.io/docs/installation/#compatibility-matrix.
@@ -69,26 +56,7 @@ $ alias kubectl="minikube kubectl --"
 
 #### Kyverno policy engine
 
-Install [Kyverno policy engine](https://kyverno.io) by running:
-
-```shell
-# Install either the official installation file
-$ kubectl create -f ttps://github.com/kyverno/kyverno/publishs/download/v1.11.4/install.yaml
-# or a verbose mode enabled from this repository.
-# -dumpPayload=true and --v=6 for kyverno-admission-controller 
-$ kubectl create -f https://raw.githubusercontent.com/slsa-framework/oss-na24-slsa-workshop/main/activities/04/kyverno/install_verbose_v1.11.4.yml
-```
-
-You should now see Kyverno pods:
-
-```shell
-$ kubectl get pods -A
-...
-kyverno       kyverno-admission-controller-6dd8fd446c-4qck5    1/1     Running   0               5s
-kyverno       kyverno-background-controller-54f5d9b6f4-whkff   1/1     Running   0               5s
-kyverno       kyverno-cleanup-controller-7c5f8bcd79-pwq2d      1/1     Running   0               5s
-kyverno       kyverno-reports-controller-7bdb457748-4xbvj      1/1     Running   0               5s
-```
+Install [Kyverno policy engine](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#kyverno):
 
 Optional: Open a new terminal and monitor the logs for the admission controller and keep this terminal open:
 
