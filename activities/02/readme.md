@@ -6,11 +6,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 ### What you will need
 
-To complete this activity, you need:
-
-1. To have read the policy part of the [slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
-1. A GitHub account
-1. A docker registry account (alternatively you can use GitHub registry)
+Install the [necessary software](./INSTALLATION.md).
 
 ### Publish policy and attestation
 
