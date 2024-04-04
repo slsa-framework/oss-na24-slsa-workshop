@@ -96,7 +96,7 @@ Follow these steps:
 
 1. Update the [organization workflow call](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/publish-image.yml#L37) that evaluates the publish policy.
 1. Update the [registry-username](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/publish-image.yml#L43) to yours.
-1. (Already done in Activity 01): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
+1. (Already done in Activity 01): Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access. 
 1. (Already done in Activity 01): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
 
