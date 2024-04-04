@@ -6,15 +6,9 @@ This is the landing page for the [OpenSSF SLSA Workshop](https://events.linuxfou
 
 Slides for the worshops: [here](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
 
-## Requirements
-
-1. A Linux machine
-2. A GitHub account
-3. A docker registry account (alternatively you can use GitHub registry)
-
 ## Installation
 
-If you have some time to spare, [install the necessary software](./INSTALLATION.md) prior to joining the workshop.
+Install the [necessary software](./INSTALLATION.md).
 
 ## Schedule
 
