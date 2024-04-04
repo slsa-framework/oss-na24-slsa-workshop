@@ -115,7 +115,7 @@ To verify a deployment attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-deployer.yml@refs/heads/main"
 $ type=https://slsa.dev/deployment/v0.1
