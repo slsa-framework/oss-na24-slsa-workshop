@@ -12,6 +12,8 @@ Install [git](https://github.com/git-guides/install-git).
 
 ## Docker
 
+Create a [docker account](https://hub.docker.com/signup).
+
 Install [docker](https://docs.docker.com/engine/install/).
 
 ## Slsa-verifier
