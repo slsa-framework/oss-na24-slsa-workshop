@@ -4,7 +4,7 @@ This is the landing page for the [OpenSSF SLSA Workshop](https://events.linuxfou
 
 ## Supporting materials
 
-Slides for the worshops: [here](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
+[Slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q) for the workshop.
 
 ## Installation
 
