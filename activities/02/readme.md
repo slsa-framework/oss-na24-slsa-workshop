@@ -75,7 +75,7 @@ As explained in [repository protections](#repository-protections), for time cons
 
 The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json) which describes the team policy for the container built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). The file contains the following sections:
 
-1. The [package](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L3) section describes the package to publish, i.e., [docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
+1. The [package](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L3) section describes the package to publish, i.e., [docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
 1. The [build](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L11) section describes how to build the container, i.e. it must be built from the source repository [github.com/slsa-framework/oss-na24-slsa-workshop-project1](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L14) by builder [github_generator_level_3](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/publish/echo-server.json#L12).
 
 
@@ -117,7 +117,7 @@ To verify a publish attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/slsa-framework/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
