@@ -14,7 +14,7 @@ Slides for the worshops: [here](https://docs.google.com/presentation/d/1w3AWWdXQ
 
 ## Installation
 
-If you have some time to spare, [install the necessary software](./INSTALLATION.md) prior to joinging the workshop.
+If you have some time to spare, [install the necessary software](./INSTALLATION.md) prior to joining the workshop.
 
 ## Schedule
 
