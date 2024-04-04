@@ -6,7 +6,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 ### What you will need
 
-Install the [necessary software](./INSTALLATION.md).
+Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md).
 
 ### Publish policy and attestation
 
