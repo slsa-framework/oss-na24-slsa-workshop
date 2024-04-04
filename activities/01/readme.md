@@ -74,9 +74,9 @@ The slsa-verifier verifies:
 
 Pass command `--print-provenance | jq` to see the verified content of the attestation.
 
-Explore other commands by using the `--help` command. You can read more on the project repository [here](https://github.com/slsa-framework/slsa-verifier).
+Explore other commands by using the `--help` command. You can read more on the [project repository](https://github.com/slsa-framework/slsa-verifier).
 
-Run the same verification command but remove the `sha256:xxx` part of the image name: `image=idocker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See hints [here](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
+Run the same verification command but remove the `sha256:xxx` part of the image name: `image=idocker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See [hints](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
 
 #### Optional: Verification in a GitHub  workflow
 
