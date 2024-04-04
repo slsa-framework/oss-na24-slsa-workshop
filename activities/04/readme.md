@@ -131,7 +131,7 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 #### Limitation
 
 To our knowledge, the google service account is not available to Google's GKE. One way to deploy a real-world example
-of this demo is to bind Kubernetes service account to a google service account as described [here](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
+of this demo is to [bind Kubernetes service account to a google service account](https://github.com/GoogleCloudPlatform/community/blob/master/archived/restrict-workload-identity-with-kyverno/index.md). This is out of scope of the workshop and we leave if for future work. If you take on this task, please share the code with us!
 
 #### Support other protection types
 
