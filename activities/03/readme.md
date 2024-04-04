@@ -48,7 +48,7 @@ we will assume these protections are in place. If you wish to implement these pr
 
 Under directory [policies/deployment](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/tree/main/policies/deployment) are the configuration files for the deployment policy. The file maintained by the organization admins
 is [org.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
-each trusted root is a "publishr" identity allowed to evaluate the publish policy and generate publish attestations for the organization. For example, the [only listed publishr](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json#L6) has `id:https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-publishr.yml@refs/heads/main` and is trusted to claim up to `max_slsa_level:3`. NOTE: It is important the publishr identity include the reference `refs/heads/main`, since other branches may _not_ be protected.
+each trusted root is a "publisher" identity allowed to evaluate the publish policy and generate publish attestations for the organization. For example, the [only listed publisher](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/org.json#L6) has `id:https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-publisher.yml@refs/heads/main` and is trusted to claim up to `max_slsa_level:3`. NOTE: It is important the publisher identity include the reference `refs/heads/main`, since other branches may _not_ be protected.
 
 #### Evaluator service
 
@@ -76,13 +76,13 @@ As explained in [repository protections](#repository-protections), for time cons
 
 The two files to be protected by the CODEOWNER file are prod's [servers-prod.json](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json) and staging's [servers-staging](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json). The prod file describes the team policy to deploy under google service account [name@prod-project-id.iam.gserviceaccount.com](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4). The staging file is similar but is for the staging environment that runs under service account [name@staging-project-id.iam.gserviceaccount.com](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-staging.json#L4). Each file contains the following sections:
 
-1. A [google_service_account](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the service account deployed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the publish policy. In other words, if a container was publishd for "staging", the deployment policy must contain the same environment value "staging".
+1. A [google_service_account](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L4) section describes the service account deployed containers are allowed to run under. NOTE: The environment (prod, staging) must match the one used for the publish policy. In other words, if a container was published for "staging", the deployment policy must contain the same environment value "staging".
 1. A [SLSA level for the builder](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L7). NOTE: The deployment policy uses publish attestations to determine the SLSA levels.
 1. A [list of packages](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L9-L33) allowed to run under the service account.
 
 Follow these steps:
 
-1. Update the list of [packages](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L11) using the container you built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and publishd in [Activity 02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md).
+1. Update the list of [packages](https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/blob/main/policies/deployment/servers-prod.json#L11) using the container you built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and published in [Activity 02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md).
 
 ##### Call the evaluator in CI
 
@@ -95,7 +95,7 @@ Follow these steps:
 
 1. Update the [organization workflow call](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L41) that evaluates the deployment policy.
 1. Update the [registry-username](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/deploy-image.yml#L47) to yours.
-1. (Already done in Activity [01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Create a docker regitry token (with push access), see [here](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token). 
+1. (Already done in Activity [01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access. 
 1. (Already done in Activity [01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md) and [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/02/readme.md)): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
 
@@ -133,7 +133,7 @@ For more information about the deployment attestation schema, see [specs](https:
 
 #### Set up ACLs
 
-Remember to try setting up the protection ACLs to protect the policy and allow teams to edit the files they own. See [here](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) for details.
+Remember to try setting up the [protection ACLs](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) to protect the policy and allow teams to edit the files they own.
 
 #### Pre-submits for CODEOWNER
 
@@ -143,7 +143,7 @@ We must ensure that new team policy files are accompanied by a new CODEOWNER fil
 
 In this demo, the attestations are stored along the container. This means that to store the deployment attestation, the team calling the evaluator needs write access to the registry, so it will not work if you try to deploy an image that you do not own since you will not have write access to the registry account. The workaround is to create an organization registry account on docker, and use that to store all attestations. You will need to follow these steps:
 
-1. Update the [Sign function](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the deployment attestation. This function is also used for signing the publish attestation, but we should not change the logic for the latter. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [here](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281) for example.
+1. Update the [Sign function](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the deployment attestation. This function is also used for signing the publish attestation, but we should not change the logic for the latter. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [example code](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281).
 2. Add an option to the evaluator CLI.
 3. Update your deployment evaluator to use the new option.
 4. Share your code with us! We can merge it in [slsa-policy repository](https://github.com/laurentsimon/slsa-policy).
