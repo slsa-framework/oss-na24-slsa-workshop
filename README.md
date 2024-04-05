@@ -2,6 +2,11 @@
 
 This is the landing page for the [OpenSSF SLSA Workshop](https://events.linuxfoundation.org/open-source-summit-north-america/features/co-located-events/?__hstc=14087400.578b67b64e2190424395285af33c8d5d.1708423678822.1710755394570.1710772128577.15&__hssc=14087400.1.1710772128577&__hsfp=1817696209#openssf-slsa-workshop) hosted at the [2024 Open Source Security Summit North America](https://events.linuxfoundation.org/open-source-summit-north-america/) on April 15.
 
+## Skills required
+
+Virtually none. If you have not coded in a while, you can still follow the workshop. All hands-on activities have code that is ready to be run. 
+All you'll need to do is clone repositories, update configurations and click GitHub buttons or run commands in a terminal to follow along.
+
 ## Supporting materials
 
 [Slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q) for the workshop.
