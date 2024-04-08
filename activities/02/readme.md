@@ -21,6 +21,8 @@ The publish attestation hides away details of the development cycle from your co
 
 In this activity, we will focus on the integrity protections applied to an artifact during its development, i.e. its minimum SLSA level. This will help us achieve the first goal of the workshop, which is to ensure that all produced containers are protected against tampering across the SDLC.
 
+NOTE: The name and schema of this attestation is under discussion in the community and is subject to changes.
+
 ## Deep dive
 
 ### Publish policy setup
