@@ -129,6 +129,8 @@ $ path/to/cosign verify-attestation "${image}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
+NOTE: The name and schema of this attestation is under discussion in the community and is subject to changes.
+
 ### Do it at home
 
 #### Set up ACLs
