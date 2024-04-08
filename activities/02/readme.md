@@ -12,12 +12,12 @@ Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa
 
 A publish policy is a set of requirements that software must meet to be published: This could be passing a vulnerability scan, that the correct source repository was used, that the code was not tampered with (i.e. a minimum SLSA level), etc. As an organization, this policy provides visibility and auditability into their supply-chain. An organization may require all software meet a minimum set of requirements before releasing internally or externally on public package registries.
 
-After evaluating a publish policy, the policy evaluator generates a so-called "publish attestation" as evidence that the policy evaluation succeeded. The attestation expresses the fact that software is ready to be published and optionally contains information about the properties of the artifact evaluated, such as its SLSA level or whether it was scanned for vulnerabilities, etc. Note that evaluating a policy prior to generating a publish attestation is _not_ a requirement, but encouraged. The attestation can be used in two ways:
+After evaluating a publish policy, the policy evaluator generates a so-called "publish attestation" as evidence that the policy evaluation succeeded. The attestation expresses the fact that software is ready to be published and optionally contains information about the properties of the artifact evaluated, such as its SLSA level, whether it was scanned for vulnerabilities, its compliance with development standards (Fedramp, EO 14028), etc. Note that evaluating a policy prior to generating a publish attestation is _not_ a requirement, but encouraged. The attestation can be used in two ways:
 
 1. Package registries may provide a mechanism for maintainers to enforce that only packages that have a valid publish attestation are published. This effectively allows organizations to ensure that their published software meet the requirements set by the publish policy across all their projects.
 2. Consumers of packages may read the properties in the publish attestations and decide if it meets the requirements for their use case.
 
-The publish attestation hides away details of the development cycle from your consumers. For example, most of them need not know or keep track of which repository your artifact was built from. All that matters to them is the level of integrity protection (SLSA level) the artifact has or whether it was scanned or some other property. If certain consumers want to know more details about your artifacts (e.g., what builder you used, what repository it was built from), they can verify upstream attestations (e.g., SLSA provenance from the builder) themselves using attestations referenced in the publish attestation. Note that if a project is not developed as open source or if it is not built with a public builder (GitHub, GCB), the publish attestation still allows producers to convey certain characteritics about their published artifact.
+The publish attestation hides away details of the development cycle from your consumers. For example, most of them need not know or keep track of which repository your artifact was built from. All that matters to them is the set of properties to help make an informed decision whether to use an artifact or not (integrity protection, presence of vulnerabilities, compliance with known development standards, etc). If certain consumers want to know more details about your artifacts (e.g., what builder you used, what repository it was built from), they can verify upstream attestations (e.g., SLSA provenance from the builder) themselves using attestations referenced in the publish attestation. Note that if a project is not developed as open source or if it is not built with a public builder (GitHub, GCB), the publish attestation still allows producers to convey certain characteritics about their published artifact.
 
 In this activity, we will focus on the integrity protections applied to an artifact during its development, i.e. its minimum SLSA level. This will help us achieve the first goal of the workshop, which is to ensure that all produced containers are protected against tampering across the SDLC.
 
@@ -144,6 +144,10 @@ In this Activity, users need to explicitly call the publish policy evaluator fro
 1. If your organization has an internal registry where teams publish their containers / artifacts, the registry itself may evaluate the publish policy.
 2. Integration with tooling: The package manager calls the evaluator. For example, docker CLI could be extended with a `--publish-policy-evaluator-url` to allow users to provide the URL of the evaluator. Users would run `docker push ${image} --publish-policy-evaluator-url=https://publish.mycompany.com/policy`. This would require standardizing the interface to the evaluator. Package registries may provide a mechanism for maintainers to enforce that only packages that have a valid publish attestation are published. This effectively allows organizations to ensure that their published software meet the requirements set by the publish policy. Integration with tooling is a flexible long-term solution.
 
+### Additional artifact properties
+
+In this demo, we have focused on integrity propertion of the published artifact, i.e., its SLSA level. Can you add support for other properties?
+
 ## Take the quizz!
 
 After completing this activity, you should be able to answer the following questions:
@@ -152,5 +156,6 @@ After completing this activity, you should be able to answer the following quest
 2. What invariant is enforced across all policy files? Why is it necessary?
 3. What are trusted roots? Who configures them?
 4. What is a publish attestation? Who creates it? What information does it contain?
-5. What metadata is needed to verify a publish attestation?
-6. What improvements can we make to improve UX for teams?
+5. What artifact properties may be useful to reports in the attestation beong the one used in this tutorial?
+6. What metadata is needed to verify a publish attestation?
+7. What improvements can we make to improve UX for teams?
