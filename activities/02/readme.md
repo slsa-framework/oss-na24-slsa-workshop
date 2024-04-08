@@ -156,6 +156,6 @@ After completing this activity, you should be able to answer the following quest
 2. What invariant is enforced across all policy files? Why is it necessary?
 3. What are trusted roots? Who configures them?
 4. What is a publish attestation? Who creates it? What information does it contain?
-5. What artifact properties may be useful to reports in the attestation beong the one used in this tutorial?
+5. What artifact properties may be useful to report in the attestation beyong its SLSA level?
 6. What metadata is needed to verify a publish attestation?
 7. What improvements can we make to improve UX for teams?
