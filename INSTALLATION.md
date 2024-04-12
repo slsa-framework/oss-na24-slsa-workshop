@@ -85,7 +85,7 @@ $ cd ../
 ```
 
 ### model-transparency
-Make sure you're still in the virtual environment setup in the previous step Then install model-transparency:
+Make sure you're still in the virtual environment setup in the previous step. Then install model-transparency:
 
 ```shell
 $ # Install more dependencies
