@@ -24,7 +24,7 @@ Install [Sigstore](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob
 
 TODO: download from GH
 
-Ensure you are running in the [python virtal environment]((https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#sigstore-python)) where you installed the tooling: 
+Ensure you are running in the [python virtal environment](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#sigstore-python) where you installed the tooling: 
 
 ```shell
 $ cd sigstore-python
@@ -37,8 +37,11 @@ Verify the model. The signer is `laurentsimon@google.com` and the identity provi
 ```shell
 $ provider=https://accounts.google.com
 $ identity=laurentsimon@google.com
+$ cd model-transparency/model_signing
 $ python3 main.py verify --path path/to/model/ --identity "${identity}" --identity-provider "${provider}"
 ```
+
+All you needed to verify was an identity and its provider. No cryptographic keys involved.
 
 ### End-to-end model signing and verification
 
@@ -49,7 +52,7 @@ This will take 10mn or so. You can download a pre-trained model if you prefer.
 
 #### Model signing
 
-Ensure you are running in the [python virtal environment]((https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#sigstore-python)) where you installed the tooling: 
+Ensure you are running in the [python virtal environment](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#sigstore-python) where you installed the tooling: 
 
 ```shell
 $ cd sigstore-python
