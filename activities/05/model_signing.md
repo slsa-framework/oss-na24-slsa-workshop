@@ -10,7 +10,7 @@ Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa
 
 ### Model signing
 
-The signing library / CLI uses the sigstore signing solution which makes code signatures transparent without requiring management of cryptographic key material. You can read an [overview of Sigstore](https://github.com/sigstore/model-transparency/blob/main/model_signing/README.md#model-signing). We encourage you to check the official [sigstore.dev](https://www.sigstore.dev/) after the workshop to learn more. In this demo, you will see first hand some of the benefits of using Sigstore, i.e. you won't have to manage keys!
+The [signing library / CLI](https://github.com/sigstore/model-transparency/tree/main/model_signing) uses the sigstore signing solution which makes code signatures transparent without requiring management of cryptographic key material. You can read an [overview of Sigstore](https://github.com/sigstore/model-transparency/blob/main/model_signing/README.md#model-signing). We encourage you to check the official [sigstore.dev](https://www.sigstore.dev/) after the workshop to learn more. In this demo, you will see first hand some of the benefits of using Sigstore, i.e. you won't have to manage keys!
 
 Sigstore has bindings for [many languages](https://gihub.com/sigstore). In this demo we use the [Python bindings](https://github.com/sigstore/sigstore-python). Shout-out to their maintainers [@woodruffw](https://github.com/woodruffw) and [@jku](https://github.com/jku) for making this demo possible!
 
@@ -20,7 +20,7 @@ Sigstore has bindings for [many languages](https://gihub.com/sigstore). In this 
 
 Install [Sigstore](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#sigstore-python) and [model-transparency](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#model-transparency) tools.
 
-### Model verification
+### Warmup: Model verification
 
 TODO: download from GH
 
@@ -41,7 +41,7 @@ $ cd model-transparency/model_signing
 $ python3 main.py verify --path path/to/model/ --identity "${identity}" --identity-provider "${provider}"
 ```
 
-All you needed to verify was an identity and its provider. No cryptographic keys involved.
+All you needed to verify was an identity and its provider. No cryptographic keys involved. Let's see in details how everything fits together in the next section.
 
 ### End-to-end model signing and verification
 
@@ -85,9 +85,9 @@ Sigstore used the token you provided and issued an x509 certificate for your ide
 
 To verify, you need to know both the identity of the signer and its identity provider:
 
-- Google's provider is https://accounts.google.com.
-- GitHub's provider is https://github.com/login/oauth.
-- Microsoft's provider is https://login.microsoftonline.com.
+- Google's provider is `https://accounts.google.com`.
+- GitHub's provider is `https://github.com/login/oauth`.
+- Microsoft's provider is `https://login.microsoftonline.com`.
 
 ```shell
 $ provider=_one_of_providers_above
@@ -100,13 +100,13 @@ Try editing, deleting or adding files to your model and re-run the verification.
 
 #### Signature bundle
 
-The file is in a format called a [Sigstore bundle](https://github.com/sigstore/protobuf-specs/blob/7f7548165de89a5cf7c4ec2f3728c5e3763e4d96/protos/sigstore_bundle.proto#L111). It is a flexible signature format that can accommodate x509 certificates (public or private PKI), static keys, [TUF keys](https://theupdateframework.io/), etc.
+The signature file is in a format called a [Sigstore bundle](https://github.com/sigstore/protobuf-specs/blob/7f7548165de89a5cf7c4ec2f3728c5e3763e4d96/protos/sigstore_bundle.proto#L111). It is a flexible signature format that can accommodate x509 certificates (public or private PKI), static keys, [TUF keys](https://theupdateframework.io/), etc.
 
-Let's take a look at the signature file. 
+Let's take a look at the signature file. Make sure [jq](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#jq) and [openssl](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#openssl) are installed on your machine.
 
 ```shell
 $ model=path/to/model/
-$ jq < "${model}"
+$ jq < "${model}model.sig"
 # Visualize the certificate Sigstore created for your identity
 $ jq -r '.verificationMaterial.certificate.rawBytes'< "${model}"model.sig | base64 -d | openssl x509 -text -noout
 [...]
@@ -124,7 +124,7 @@ Now let's see the actual data that was signed:
 
 ```shell
 $ model=path/to/model/
-$ jq -r '.dsseEnvelope.payload' <"${model}"/model.sig | base64 -d | jq
+$ jq -r '.dsseEnvelope.payload' <"${model}"model.sig | base64 -d | jq
 [...]
 "files": [
     {
@@ -143,13 +143,20 @@ $ jq -r '.dsseEnvelope.payload' <"${model}"/model.sig | base64 -d | jq
 ]
 ```
 
-You see a list of files present in the model, each with their path and digest. Notice the digest is of type `sha256-p1`. Mode files can be several hundreds of gigabytes in size. So to speed up hash computation, each file is split into multiple chunks that are hashes separately. `p` stands for parallel, because multiple hashing routine work in parallel.
+You see a list of files present in the model, each with their path and digest. Notice the digest is of type `sha256-p1`. Model files can be several hundreds of gigabytes in size. So to speed up hash computation, each file is split into multiple chunks that are hashes separately. `p` stands for parallel, because multiple hashing routine work in parallel to compute a file digest.
 
 ### Future work
 
 #### Support other protection types
 
-Signing with Sigstore not only support human identity (email addresses), but also machine identity. You can sign with a cloud service account, or a GitHub workflow identity. Try that out and let us know how it goes.
+Signing with Sigstore not only supports human identity (email addresses), but also workflow identity. For automated signing using a workload identity, the following platforms are currently supported, shown with their expected identities:
+
+- GitHub Actions (`https://github.com/octo-org/octo-automation/.github/workflows/oidc.yml@refs/heads/main`)
+- GitLab CI (`https://gitlab.com/my-group/my-project//path/to/.gitlab-ci.yml@refs/heads/main`)
+- Google Cloud Platform (`SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com`)
+Buildkite CI (`https://buildkite.com/ORGANIZATION_SLUG/PIPELINE_SLUG`)
+
+Try that out and let us know how it goes!
 
 ## Take the quizz!
 
