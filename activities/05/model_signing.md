@@ -10,7 +10,7 @@ Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa
 
 ### Model signing
 
-The signing library / CLI uses the sigstore signing solution which makes code signatures transparent without requiring management of cryptographic key material. You can read an [overview of Sigstore](https://github.com/sigstore/model-transparency/blob/main/model_signing/README.md#model-signing). We encourage you to check the official [sigstore.dev](https://www.sigstore.dev/). In this demo, you will see first hand some of the benefits of using Sigstore, i.e. you won't have to manage keys!
+The signing library / CLI uses the sigstore signing solution which makes code signatures transparent without requiring management of cryptographic key material. You can read an [overview of Sigstore](https://github.com/sigstore/model-transparency/blob/main/model_signing/README.md#model-signing). We encourage you to check the official [sigstore.dev](https://www.sigstore.dev/) after the workshop to learn more. In this demo, you will see first hand some of the benefits of using Sigstore, i.e. you won't have to manage keys!
 
 Sigstore has bindings for [many languages](https://gihub.com/sigstore). In this demo we use the [Python bindings](https://github.com/sigstore/sigstore-python). Shout-out to their maintainers [@woodruffw](https://github.com/woodruffw) and [@jku](https://github.com/jku) for making this demo possible!
 
