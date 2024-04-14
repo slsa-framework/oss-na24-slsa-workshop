@@ -119,7 +119,7 @@ To verify a publish attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:4004ae316501b67d4d2f7eb82b02f36f32f91101cc9a53d5eb4dd044c16a552e
+$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/slsa-framework/oss-na24-slsa-workshop-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
