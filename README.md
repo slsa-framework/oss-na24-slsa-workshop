@@ -23,13 +23,13 @@ Install the [necessary software](./INSTALLATION.md).
 
 The schedule and presentations are available in the [slides](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf).
 
-1. [Presentation: Introduction to SLSA](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf#page=4)
+1. [Presentation: Introduction to SLSA](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf) Page 4
 2. [Activity 01: Generate and verify SLSA provenance](./activities/01/readme.md)
-3. Presentation: Publish and deployment policies TODO: link
+3. [Presentation: Publish and deployment policies](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf) Page 10
 4. [Activity 02: Publish policy](./activities/02/readme.md)
 5. [Activity 03: Deployment policy](./activities/03/readme.md)
 6. [Activity 04: Kyverno setup](./activities/04/readme.md)
-7. Presentation: SLSA for AI TODO: link
+7. [Presentation: SLSA for AI](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf) Page 27
 8. [Activity 05: Model integrity protection](./activities/05/readme.md)
 
  
