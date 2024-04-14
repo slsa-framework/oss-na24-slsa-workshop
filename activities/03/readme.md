@@ -6,7 +6,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 ### Attacks prevented
 
-Using a deployment policy mitigates attack [(D) "use compromised dependency"](https://slsa.dev/spec/v1.0/threats). It also mitigates a threat not currently mentioned in the diagram which we could call (I) "deploy unauthorized package", e.g., a debug package to a prod environment, or a malicious (integrity protected) package to a prod environment. In addition, a deployment policy provides an inventory of all deployment environment used ithin an organization.
+Using a deployment policy mitigates attack [(D) "use compromised dependency"](https://slsa.dev/spec/v1.0/threats). It also mitigates a threat not currently mentioned in the diagram which we could call (I) "deploy unauthorized package", e.g., a debug package to a prod environment, or a malicious (integrity protected) package to a prod environment. In addition, a deployment policy provides an inventory of all deployment environment used by an organization.
 
 ### What you will need
 

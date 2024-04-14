@@ -6,7 +6,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 ### Attacks prevented
 
-Using a publish policy mitigates attacks [(F) "Upload modified package"](https://slsa.dev/spec/v1.0/threats), [(G) "compromise package registry"](https://slsa.dev/spec/v1.0/threats). In addition, a publish policy provides an inventory of all packages published by an organization.
+Using a publish policy mitigates attacks [(F) "Upload modified package"](https://slsa.dev/spec/v1.0/threats) and [(G) "compromise package registry"](https://slsa.dev/spec/v1.0/threats). In addition, a publish policy provides an inventory of all packages published by an organization.
 
 ### What you will need
 
