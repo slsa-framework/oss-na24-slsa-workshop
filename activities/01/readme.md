@@ -4,6 +4,10 @@
 
 Let's start by familiarizing ourselves with the goal of this activity.
 
+### Attacks prevented
+
+Building with a high-level SLSA builder prevents [build threats (E) "compromise build process"](https://slsa.dev/spec/v1.0/threats), i.e., it prevents a build process compromise from infecting different builds. SLSA builders acheieve this by running each build process in an isolated, ephemeral environment. Beware of [dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows) in your build, since those may violate this property.
+
 ### What you will need
 
 Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md).
@@ -92,3 +96,4 @@ After completing this activity, you should be able to answer the following quest
 2. What is a SLSA level? What does it represent? What component do we associate it to?
 3. What is SLSA provenance? What information does it contain?
 4. What is the necessary metadata to verify SLSA provenance for an artifact?
+5. Read about [dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows). How might it impact the security of your builds?

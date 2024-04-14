@@ -4,6 +4,10 @@
 
 Let's start by familiarizing ourselves with the goal of this activity.
 
+### Attacks prevented
+
+Enforcing a deployment policy before deploying packages mitigate an attack not currently mentioned in the diagram which we could call (I) "deploy unauthorized package", e.g., a debug package to a prod environment, or a malicious (integrity protected) package to a prod environment.
+
 ### What you will need
 
 Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md).
