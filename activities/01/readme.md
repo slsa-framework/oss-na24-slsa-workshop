@@ -6,7 +6,7 @@ Let's start by familiarizing ourselves with the goal of this activity.
 
 ### Attacks prevented
 
-Building with a high-level SLSA builder prevents [build threats (E) "compromise build process"](https://slsa.dev/spec/v1.0/threats), i.e., it prevents a build process compromise from infecting different builds. SLSA builders acheieve this by running each build process in an isolated, ephemeral environment. Beware of [dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows) in your build, since those may violate this property.
+Building with a high-level SLSA builder prevents [build threats (E) "compromise build process"](https://slsa.dev/spec/v1.0/threats), i.e., it prevents a build process compromise from infecting different builds. SLSA builders mitigates the threat by running each build process in an isolated, ephemeral environment. Beware of [dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows) in your build, since those may violate this property.
 
 ### What you will need
 
