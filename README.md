@@ -13,7 +13,7 @@ All you'll need to do is clone repositories, update configurations and click Git
 
 ## Supporting materials
 
-[Slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q) for the workshop.
+[Slides](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf) for the workshop.
 
 ## Installation
 
@@ -21,9 +21,9 @@ Install the [necessary software](./INSTALLATION.md).
 
 ## Schedule
 
-The schedule and presentations are available in the [slides](https://docs.google.com/presentation/d/1w3AWWdXQ8ePoT50R6Ujs-Ji_aXGBa1HmxHBcQIGgH2Q).
+The schedule and presentations are available in the [slides](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf).
 
-1. Presentation: Introduction to SLSA TODO: link
+1. [Presentation: Introduction to SLSA](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf#page=4)
 2. [Activity 01: Generate and verify SLSA provenance](./activities/01/readme.md)
 3. Presentation: Publish and deployment policies TODO: link
 4. [Activity 02: Publish policy](./activities/02/readme.md)
